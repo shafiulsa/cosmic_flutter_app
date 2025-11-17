@@ -12,7 +12,9 @@ class MyApp extends StatelessWidget {
         themeMode: ThemeMode.system,  // mobaile ar j theme satai dekhbe
         theme: SAppTheme.lightTheme,
         darkTheme: SAppTheme.darkTheme,
-        home: Scaffold()
+        home: Scaffold(
+
+        )
     );
   }
 }

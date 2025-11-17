@@ -14,7 +14,7 @@ class SAppTheme {
 
   static ThemeData lightTheme = ThemeData(
     useMaterial3: true,
-    fontFamily: 'Poppins',
+    fontFamily: 'Nunito',
     disabledColor: SColors.grey,
     brightness: Brightness.light,
     primaryColor: SColors.primary,
@@ -31,7 +31,7 @@ class SAppTheme {
 
   static ThemeData darkTheme = ThemeData(
     useMaterial3: true,
-    fontFamily: 'Poppins',
+    fontFamily: 'Nunito',
     disabledColor: SColors.grey,
     brightness: Brightness.dark,
     primaryColor: SColors.primary,
