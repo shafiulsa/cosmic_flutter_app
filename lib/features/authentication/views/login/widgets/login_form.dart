@@ -1,7 +1,9 @@
 import 'package:e_commerce_app/Common/widgets/button/elevated_button.dart';
+import 'package:e_commerce_app/features/authentication/views/signup/signup.dart';
 import 'package:e_commerce_app/utils/constans/sizes.dart';
 import 'package:e_commerce_app/utils/constans/text.dart';
 import 'package:flutter/material.dart';
+import 'package:get_x/get.dart';
 
 class SLoginForm extends StatelessWidget {
   const SLoginForm({
@@ -51,8 +53,17 @@ class SLoginForm extends StatelessWidget {
         //sign in
         SElevatedButton(onPress: (){},child: Text(SText.signIn)),
         SizedBox(height:SSizes.spaceBtwItems),
-        //sign in
-        SElevatedButton(onPress: (){},child: Text(SText.signIn))
+        //Create Account
+        SizedBox(
+          width: double.infinity,
+          // Wrap the navigation logic inside an anonymous function
+          child: OutlinedButton(
+              onPressed: () {
+                Get.to(() => SignUpScreen());
+              },
+              child: Text(SText.createAccount)
+          ),
+        )
       ],
     );
   }
