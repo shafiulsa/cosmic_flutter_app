@@ -1,3 +1,4 @@
+import 'package:e_commerce_app/features/authentication/views/login/login.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get_x/get.dart';
 
@@ -20,6 +21,7 @@ class OnBoardingController extends GetxController {
   /// Update current index & jump to next page
   void nextPage() {
     if(currentPageIndex.value==2){
+      Get.offAll(()=>LoginScreen());
       return;
     }
     currentPageIndex.value++;
