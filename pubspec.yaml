@@ -12,7 +12,10 @@ dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.8
-  flutter_native_splash: ^2.4.7
+  flutter_native_splash: ^2.4.7   #splash screen ar jonna
+  smooth_page_indicator: ^1.2.1  #page ar change ta jano bujha jay sata bujhar jonna
+  lottie: ^3.3.2  #Onboarding, splash, loader, success, empty states — সব জায়গায় use করা যায়।
+  get_x: ^5.0.0
 
 dev_dependencies:
   flutter_test:
@@ -25,6 +28,7 @@ flutter:
   #--------------- LOCAL ASSETS ------------------#
   assets:
     - assets/logo/
+    - assets/animations/
 
   #--------------- LOCAL FONTS ------------------#
   fonts:

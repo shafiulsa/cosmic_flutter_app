@@ -1,3 +1,4 @@
+import 'package:e_commerce_app/features/authentication/views/onboading/onboading.dart';
 import 'package:e_commerce_app/utils/theam/theam.dart';
 import 'package:flutter/material.dart';
 
@@ -12,9 +13,7 @@ class MyApp extends StatelessWidget {
         themeMode: ThemeMode.system,  // mobaile ar j theme satai dekhbe
         theme: SAppTheme.lightTheme,
         darkTheme: SAppTheme.darkTheme,
-        home: Scaffold(
-
-        )
+        home: OnboadingScreeen(),
     );
   }
 }
