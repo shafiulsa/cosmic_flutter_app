@@ -1,5 +1,6 @@
 import 'package:e_commerce_app/Common/style/padding.dart';
 import 'package:e_commerce_app/Common/widgets/button/elevated_button.dart';
+import 'package:e_commerce_app/Common/widgets/scrrens/success_screen.dart';
 import 'package:e_commerce_app/features/authentication/views/login/login.dart';
 import 'package:e_commerce_app/utils/constans/images.dart';
 import 'package:e_commerce_app/utils/constans/sizes.dart';
@@ -9,8 +10,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get_x/get.dart';
 
-class ResetPAsswordScreen extends StatelessWidget {
-  const ResetPAsswordScreen({super.key});
+class VerifyEmailScreen extends StatelessWidget {
+  const VerifyEmailScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -25,25 +26,29 @@ class ResetPAsswordScreen extends StatelessWidget {
         child: Padding(
           padding: SPadding.screenPadding,
           child: Column(children: [
-/// image
-             Image.asset(SImages.mailSentImage,height: SDeviceHelper.getScreenHeight(context)*0.6),
-           SizedBox(height: SSizes.spaceBtwItems),
+            /// image
+            Image.asset(SImages.mailSentImage,height: SDeviceHelper.getScreenHeight(context)*0.6),
+            SizedBox(height: SSizes.spaceBtwItems),
             /// title
-            Text(SText.resetPasswordTitle,style: Theme.of(context).textTheme.headlineMedium),
+            Text(SText.verifyEmailTitle,style: Theme.of(context).textTheme.headlineMedium),
             SizedBox(height: SSizes.spaceBtwItems),
             /// Subttile
             Text("shafiul@gmail..com",style: Theme.of(context).textTheme.bodyMedium),
             SizedBox(height: SSizes.spaceBtwItems),
             /// Subttile
-            Text(SText.resetPasswordSubTitle,style: Theme.of(context).textTheme.bodyMedium),
+            Text(SText.verifyEmailSubTitle,style: Theme.of(context).textTheme.bodyMedium),
             SizedBox(height: SSizes.spaceBtwItems),
 
             /// Done
-            SElevatedButton(onPress: (){}, child: Text(SText.done)),
-            /// Resend Email
+            SElevatedButton(onPress: ()=> Get.to(()=>SuccessScreen(
+              title: SText.accountCreatedTitle,
+              subTitle: SText.accountCreatedSubTitle,
+              image: SImages.accountCreatedImage,
+              onTap: (){},
+            )), child: Text(SText.uContinue)),            /// Resend Email
             SizedBox(height: SSizes.spaceBtwItems),
             SizedBox(
-               width: SDeviceHelper.getScreenHeight(context),
+                width: SDeviceHelper.getScreenHeight(context),
                 child: TextButton(onPressed: (){}, child: Text(SText.resendEmail)))
           ]),
         ),
