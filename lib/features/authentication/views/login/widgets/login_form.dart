@@ -1,4 +1,5 @@
 import 'package:e_commerce_app/Common/widgets/button/elevated_button.dart';
+import 'package:e_commerce_app/features/authentication/views/forget_pasword/forget_password.dart';
 import 'package:e_commerce_app/features/authentication/views/signup/signup.dart';
 import 'package:e_commerce_app/utils/constans/sizes.dart';
 import 'package:e_commerce_app/utils/constans/text.dart';
@@ -46,7 +47,7 @@ class SLoginForm extends StatelessWidget {
             ),
 
             //Forgot
-            TextButton(onPressed: (){}, child: Text(SText.forgetPassword))
+            TextButton(onPressed: ()=>Get.to(()=>ForgetPasswordScreen()), child: Text(SText.forgetPassword))
           ],
         ),
         SizedBox(height:SSizes.spaceBtwInputFields),
