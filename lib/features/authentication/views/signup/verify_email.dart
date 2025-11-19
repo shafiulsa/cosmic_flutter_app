@@ -8,7 +8,8 @@ import 'package:e_commerce_app/utils/constans/text.dart';
 import 'package:e_commerce_app/utils/helpers/device_helpers.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:get_x/get.dart';
+import 'package:get/get.dart';
+
 
 class VerifyEmailScreen extends StatelessWidget {
   const VerifyEmailScreen({super.key});

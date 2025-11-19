@@ -1,10 +1,12 @@
 import 'package:e_commerce_app/Common/widgets/button/elevated_button.dart';
 import 'package:e_commerce_app/features/authentication/views/forget_pasword/forget_password.dart';
 import 'package:e_commerce_app/features/authentication/views/signup/signup.dart';
+import 'package:e_commerce_app/navigation_menu.dart';
 import 'package:e_commerce_app/utils/constans/sizes.dart';
 import 'package:e_commerce_app/utils/constans/text.dart';
 import 'package:flutter/material.dart';
-import 'package:get_x/get.dart';
+import 'package:get/get.dart';
+
 
 class SLoginForm extends StatelessWidget {
   const SLoginForm({
@@ -52,7 +54,7 @@ class SLoginForm extends StatelessWidget {
         ),
         SizedBox(height:SSizes.spaceBtwInputFields),
         //sign in
-        SElevatedButton(onPress: (){},child: Text(SText.signIn)),
+        SElevatedButton(onPress: ()=>Get.to(()=>NavigationMenu()),child: Text(SText.signIn)),
         SizedBox(height:SSizes.spaceBtwItems),
         //Create Account
         SizedBox(

@@ -1,6 +1,5 @@
 import 'package:e_commerce_app/Common/style/padding.dart';
 import 'package:e_commerce_app/Common/widgets/button/elevated_button.dart';
-import 'package:e_commerce_app/utils/constans/images.dart';
 import 'package:e_commerce_app/utils/constans/sizes.dart';
 import 'package:e_commerce_app/utils/constans/text.dart';
 import 'package:e_commerce_app/utils/helpers/device_helpers.dart';

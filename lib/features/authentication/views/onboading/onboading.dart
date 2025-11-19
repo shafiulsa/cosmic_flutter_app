@@ -6,9 +6,9 @@ import 'package:e_commerce_app/features/authentication/views/onboading/widgets/o
 import 'package:e_commerce_app/utils/constans/images.dart';
 import 'package:e_commerce_app/utils/constans/text.dart';
 import 'package:e_commerce_app/utils/constans/sizes.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:get_x/get.dart';
+import 'package:get/get.dart';
+
 
 class OnboadingScreeen extends StatelessWidget {
   const OnboadingScreeen({super.key});

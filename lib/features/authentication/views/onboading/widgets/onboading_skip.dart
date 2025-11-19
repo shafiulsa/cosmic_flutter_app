@@ -1,7 +1,8 @@
 import 'package:e_commerce_app/features/authentication/controllers/onboading/onboading_controller.dart';
 import 'package:e_commerce_app/utils/helpers/device_helpers.dart';
 import 'package:flutter/material.dart';
-import 'package:get_x/get.dart';
+import 'package:get/get.dart';
+
 
 class OnboadingSkipButton extends StatelessWidget {
   const OnboadingSkipButton({

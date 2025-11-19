@@ -4,7 +4,8 @@ import 'package:e_commerce_app/features/authentication/views/forget_pasword/rese
 import 'package:e_commerce_app/utils/constans/sizes.dart';
 import 'package:e_commerce_app/utils/constans/text.dart';
 import 'package:flutter/material.dart';
-import 'package:get_x/get.dart';
+import 'package:get/get.dart';
+
 
 class ForgetPasswordScreen extends StatelessWidget {
   const ForgetPasswordScreen({super.key});
