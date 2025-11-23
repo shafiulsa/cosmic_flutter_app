@@ -14,11 +14,11 @@ class SSocialButton extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         //Google button
-        buildButton(SImages.facebook,(){}),
+        buildButton(SImages.facebookIcon,(){}),
         SizedBox(width: SSizes.spaceBtwItems),
 
         //facebook button
-        buildButton(SImages.google,(){}),
+        buildButton(SImages.googleIcon,(){}),
 
       ],
     );

@@ -4,7 +4,6 @@ import 'package:e_commerce_app/Common/widgets/text/section_heading.dart';
 import 'package:e_commerce_app/features/shop/views/store/widets/category_tab.dart';
 import 'package:e_commerce_app/features/shop/views/store/widets/sotre_primary_header.dart';
 import 'package:e_commerce_app/utils/constans/sizes.dart';
-import 'package:e_commerce_app/utils/helpers/helper_functions.dart';
 import 'package:flutter/material.dart';
 
 class StoreScreen extends StatelessWidget {
@@ -12,7 +11,7 @@ class StoreScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final dark = SHelperFunction.isDarkMode(context);
+
     return DefaultTabController(
       length: 5,
       child: Scaffold(

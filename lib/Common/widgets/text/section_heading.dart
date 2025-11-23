@@ -6,7 +6,7 @@ class SSectionHeading extends StatelessWidget {
     required this.title,
      this.buttonTitle="view all",
     this.onPressed,
-    required this.showActionButton,
+    this.showActionButton=true,
   });
 
   final String title, buttonTitle;
@@ -24,7 +24,7 @@ class SSectionHeading extends StatelessWidget {
           maxLines: 1,
           overflow: TextOverflow.ellipsis,
         ),
-        TextButton(onPressed: onPressed, child: Text(buttonTitle)),
+        if(showActionButton)TextButton(onPressed: onPressed, child: Text(buttonTitle)),
       ],
     );
   }

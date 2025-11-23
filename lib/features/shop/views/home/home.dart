@@ -6,7 +6,7 @@ import 'package:e_commerce_app/Common/widgets/textfield/serach_bar.dart';
 import 'package:e_commerce_app/features/shop/controllers/home/home_controller.dart';
 import 'package:e_commerce_app/features/shop/views/home/widgets/home_appbar.dart';
 import 'package:e_commerce_app/features/shop/views/home/widgets/home_catagories.dart';
-import 'package:e_commerce_app/features/shop/views/home/widgets/primary_header_container.dart';
+import 'package:e_commerce_app/Common/widgets/custome_shape/primary_header_container.dart';
 import 'package:e_commerce_app/features/shop/views/home/widgets/promo_slider.dart';
 import 'package:e_commerce_app/utils/constans/images.dart';
 import 'package:e_commerce_app/utils/constans/sizes.dart';

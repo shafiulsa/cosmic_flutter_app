@@ -2,7 +2,7 @@
 import 'package:e_commerce_app/Common/widgets/appbar/appbar.dart';
 import 'package:e_commerce_app/Common/widgets/products/cart/cart_counter_icon.dart';
 import 'package:e_commerce_app/Common/widgets/textfield/serach_bar.dart';
-import 'package:e_commerce_app/features/shop/views/home/widgets/primary_header_container.dart';
+import 'package:e_commerce_app/Common/widgets/custome_shape/primary_header_container.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../utils/constans/sizes.dart';
