@@ -5,15 +5,15 @@ import 'package:e_commerce_app/utils/constans/sizes.dart';
 import 'package:flutter/material.dart';
 
 class SPrimaryHeaderContainer extends StatelessWidget {
-  const SPrimaryHeaderContainer({super.key, required this.child});
+  const SPrimaryHeaderContainer({super.key, required this.child, required this.height});
 
   final Widget child;
-
+final double height;
   @override
   Widget build(BuildContext context) {
     return SRoundedEdges(
       child: Container(
-        height: SSizes.homePrimaryHeaderHeight,
+        height: height,
         color: SColors.primary,
         child: Stack(
           children: [

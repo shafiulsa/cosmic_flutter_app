@@ -47,7 +47,7 @@ class SImages{
 
   // -----[Products]-----
   // 1
-  static const String productImage1 = 'assets/products/product 1.png';
+  static const String productImage1 = 'assets/products/product_1.png';
   // 2
   static const String productImage2 = 'assets/products/product 2.png';
   // 3

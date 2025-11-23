@@ -2,7 +2,6 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:e_commerce_app/Common/widgets/images/roundes_image.dart';
 import 'package:e_commerce_app/features/shop/controllers/home/home_controller.dart';
 import 'package:e_commerce_app/features/shop/views/home/widgets/banner_dot_navigation.dart';
-import 'package:e_commerce_app/utils/constans/images.dart';
 import 'package:e_commerce_app/utils/constans/sizes.dart';
 import 'package:flutter/material.dart';
 
