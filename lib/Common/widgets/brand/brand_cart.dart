@@ -24,7 +24,7 @@ class SBrandCart extends StatelessWidget {
           //Brand Image
           Flexible(
             child: SRoundedImage(
-              imageUrl: SImages.bataLogo,
+              imageUrl: SImages.adidasLogo,
               backgroundColor: Colors.transparent,
             ),
           ),

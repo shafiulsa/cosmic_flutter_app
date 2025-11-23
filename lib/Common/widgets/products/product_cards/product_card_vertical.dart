@@ -32,13 +32,13 @@ class SProductCartVertical extends StatelessWidget {
           children: [
             // Thumbnail ,Favourite button, Discopunt Tag
             SRoundedContainer(
-              width: 180,
+              height: 180,
               padding: const EdgeInsets.all(SSizes.sm),
               backgroundColor: dark ? SColors.dark : SColors.light,
               child: Stack(
                 children: [
                   //Thumbnail
-                  SRoundedImage(imageUrl: SImages.productImage15),
+                  Center(child: SRoundedImage(imageUrl: SImages.productImage15)),
                   //discount tag
                   Positioned(
                     top: 12.0,
