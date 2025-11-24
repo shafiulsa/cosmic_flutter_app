@@ -3,6 +3,7 @@ import 'package:e_commerce_app/features/personalization/view/address/address.dar
 import 'package:e_commerce_app/features/personalization/view/profile/widgets/profile_primary_header.dart';
 import 'package:e_commerce_app/features/personalization/view/profile/widgets/setting_menu_tile.dart';
 import 'package:e_commerce_app/features/personalization/view/profile/widgets/user_profil_tile.dart';
+import 'package:e_commerce_app/features/shop/views/order/order.dart';
 import 'package:e_commerce_app/utils/constans/sizes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -40,15 +41,15 @@ class ProfileScreen extends StatelessWidget {
                   ),
                   SSettingMenuTile(
                     icon: Icons.local_printshop_outlined,
-                    title: "My Address",
+                    title: "My Cart",
                     subTitle: "this is beautifuke",
                     onTap: () {},
                   ),
                   SSettingMenuTile(
                     icon: Icons.accessibility_rounded,
-                    title: "My Address",
+                    title: "My Order",
                     subTitle: "this is beautifuke",
-                    onTap: () {},
+                    onTap: ()=>Get.to(()=>OrderScreen()),
                   ),
                   SizedBox(height: SSizes.spaceBtwSections),
 

@@ -6,7 +6,6 @@ import 'package:e_commerce_app/features/shop/views/product_details/wedgets/produ
 import 'package:e_commerce_app/features/shop/views/product_details/wedgets/product_meta_data.dart';
 import 'package:e_commerce_app/features/shop/views/product_details/wedgets/product_thumbnail_and_slider.dart';
 import 'package:e_commerce_app/utils/constans/sizes.dart';
-import 'package:e_commerce_app/utils/helpers/helper_functions.dart';
 import 'package:flutter/material.dart';
 import 'package:readmore/readmore.dart';
 
