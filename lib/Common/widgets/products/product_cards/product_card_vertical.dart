@@ -69,6 +69,7 @@ class SProductCartVertical extends StatelessWidget {
                       color: Colors.red,
                     ),
                   ),
+
                 ],
               ),
             ),
