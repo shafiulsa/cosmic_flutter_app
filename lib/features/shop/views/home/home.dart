@@ -4,6 +4,7 @@ import 'package:e_commerce_app/Common/widgets/products/product_cards/product_car
 import 'package:e_commerce_app/Common/widgets/text/section_heading.dart';
 import 'package:e_commerce_app/Common/widgets/textfield/serach_bar.dart';
 import 'package:e_commerce_app/features/shop/controllers/home/home_controller.dart';
+import 'package:e_commerce_app/features/shop/views/all_products/all_products.dart';
 import 'package:e_commerce_app/features/shop/views/home/widgets/home_appbar.dart';
 import 'package:e_commerce_app/features/shop/views/home/widgets/home_catagories.dart';
 import 'package:e_commerce_app/Common/widgets/custome_shape/primary_header_container.dart';
@@ -64,7 +65,7 @@ class HomeScreen extends StatelessWidget {
                   ),
                   ///section Heading
                   SizedBox(height: SSizes.spaceBtwItems),
-                  SSectionHeading(title: "Populer Products",showActionButton: true),
+                  SSectionHeading(title: "Populer Products",showActionButton: true,onPressed: ()=>Get.to(()=>AllProductsScreen()),),
                   SizedBox(height: SSizes.spaceBtwItems),
 
                   /// Vertical Product Card
