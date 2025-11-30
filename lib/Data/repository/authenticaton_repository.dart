@@ -1,6 +1,8 @@
 import 'package:e_commerce_app/features/authentication/controllers/onboading/onboading_controller.dart';
 import 'package:e_commerce_app/features/authentication/views/login/login.dart';
 import 'package:e_commerce_app/features/authentication/views/onboading/onboading.dart';
+import 'package:e_commerce_app/features/authentication/views/signup/verify_email.dart';
+import 'package:e_commerce_app/navigation_menu.dart';
 import 'package:e_commerce_app/utils/exceptions/firebase_exceptions.dart';
 import 'package:e_commerce_app/utils/exceptions/format_exceptions.dart';
 import 'package:e_commerce_app/utils/exceptions/platform_exceptions.dart';
@@ -13,7 +15,7 @@ import 'package:get_storage/get_storage.dart';
 import '../../utils/exceptions/firebase_auth_exceptions.dart';
 
 class AuthenticatonRepository extends GetxController {
-  static AuthenticatonRepository get instanc => Get.find();
+  static AuthenticatonRepository get instance => Get.find();
   final localStorage = GetStorage();
   final _auth = FirebaseAuth.instance;
 
@@ -24,12 +26,27 @@ class AuthenticatonRepository extends GetxController {
   }
 
   void screenRedirect() {
-    localStorage.writeIfNull('isFirstTime', true);
-    // IMPORTANT: Put controller before going to onboarding screen
-    Get.put(OnBoardingController());
-    localStorage.read('isFirstTime') == true
-        ? Get.to(() => OnboadingScreeen())
-        : Get.to(() => LoginScreen());
+    final user=_auth.currentUser;
+    if(user !=null){
+     if(user.emailVerified){
+       //if verified then go to navigation screen
+       Get.offAll(()=> NavigationMenu());
+
+     }
+     else{
+       //if not verified then go to verify email screen
+       Get.offAll(()=> VerifyEmailScreen(email: user.email));
+     }
+    }
+    else{
+      localStorage.writeIfNull('isFirstTime', true);
+      // IMPORTANT: Put controller before going to onboarding screen
+      Get.put(OnBoardingController());
+      localStorage.read('isFirstTime') == true
+          ? Get.to(() => OnboadingScreeen())
+          : Get.to(() => LoginScreen());
+    }
+
   }
 
   /// [Authentication] - With Email & Password
@@ -50,4 +67,44 @@ class AuthenticatonRepository extends GetxController {
       throw 'Something went wrong. Please try again';
     }
   }
+
+  /// Manually Check if email is verified
+  Future<void> sendEmailVarification() async{
+    try{
+       await _auth.currentUser?.sendEmailVerification();
+    }on FirebaseAuthException catch (e) {
+      throw SFirebaseAuthException(e.code).message;
+    } on FirebaseException catch (e) {
+      throw SFirebaseException(e.code).message;
+    } on FormatException catch (e) {
+      throw SFormatException();
+    } on PlatformException catch (e) {
+      throw SPlatformException(e.code).message;
+    } catch (e) {
+      throw 'Something went wrong. Please try again';
+    }
+  }
+
+  /// [Logout] - Logout the user
+  Future<void> logout() async {
+    try {
+      // 1. Sign out the user from Firebase
+      await FirebaseAuth.instance.signOut();
+
+      // 2. Navigate to the Login Screen and clear all previous screens
+      Get.offAll(() => LoginScreen());
+
+    } on FirebaseAuthException catch(e) {
+      throw SFirebaseAuthException(e.code).message;
+    } on FirebaseException catch(e) {
+      throw SFirebaseException(e.code).message;
+    } on FormatException catch(e) {
+      throw SFormatException();
+    } on PlatformException catch(e) {
+      throw SPlatformException(e.code).message;
+    } catch(e) {
+      throw 'Something went wrong. Please try again';
+    }
+  }
+
 }

@@ -9,13 +9,11 @@ import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 
 class SSignUpForm extends StatelessWidget {
-  const SSignUpForm({
-    super.key,
-  });
+  const SSignUpForm({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final controller= SignUpController.instance;
+    final controller = SignUpController.instance;
 
     return Form(
       key: controller.signUpForKey,
@@ -26,7 +24,8 @@ class SSignUpForm extends StatelessWidget {
               Expanded(
                 child: TextFormField(
                   controller: controller.firstName,
-                  validator: (value)=>SValidator.validateEmptyText("First name", value),
+                  validator: (value) =>
+                      SValidator.validateEmptyText("First name", value),
                   decoration: InputDecoration(
                     labelText: SText.firstName,
                     prefixIcon: Icon(Iconsax.user),
@@ -35,10 +34,10 @@ class SSignUpForm extends StatelessWidget {
               ),
               SizedBox(width: SSizes.spaceBtwInputFields),
               Expanded(
-
                 child: TextFormField(
                   controller: controller.lastName,
-                  validator: (value)=>SValidator.validateEmptyText("Last name", value),
+                  validator: (value) =>
+                      SValidator.validateEmptyText("Last name", value),
                   decoration: InputDecoration(
                     labelText: SText.lastName,
                     prefixIcon: Icon(Iconsax.user),
@@ -51,7 +50,7 @@ class SSignUpForm extends StatelessWidget {
           //Email
           TextFormField(
             controller: controller.email,
-              validator: (value)=>SValidator.validateEmail(value),
+            validator: (value) => SValidator.validateEmail(value),
             decoration: InputDecoration(
               labelText: SText.email,
               prefixIcon: Icon(Iconsax.user),
@@ -62,7 +61,7 @@ class SSignUpForm extends StatelessWidget {
           //Phone
           TextFormField(
             controller: controller.phoneNumber,
-    validator: (value)=>SValidator.validatePhoneNumber(value),
+            validator: (value) => SValidator.validatePhoneNumber(value),
             decoration: InputDecoration(
               labelText: SText.phoneNumber,
               prefixIcon: Icon(Iconsax.user),
@@ -72,14 +71,22 @@ class SSignUpForm extends StatelessWidget {
 
           //password
           Obx(
-    ()=>TextFormField(
-      obscureText: controller.isPasswordVisble.value,
+            () => TextFormField(
+              obscureText: controller.isPasswordVisble.value,
               controller: controller.password,
-            validator: (value)=>SValidator.validatePassword(value),
+              validator: (value) => SValidator.validatePassword(value),
               decoration: InputDecoration(
                 labelText: SText.password,
                 prefixIcon: Icon(Iconsax.user),
-                suffixIcon: IconButton(onPressed:  ()=> controller.isPasswordVisble.value= !controller.isPasswordVisble.value, icon: Icon(controller.isPasswordVisble.value ? Icons.visibility : Iconsax.eye_slash)),
+                suffixIcon: IconButton(
+                  onPressed: () => controller.isPasswordVisble.value =
+                      !controller.isPasswordVisble.value,
+                  icon: Icon(
+                    controller.isPasswordVisble.value
+                        ? Icons.visibility
+                        : Iconsax.eye_slash,
+                  ),
+                ),
               ),
             ),
           ),
@@ -89,11 +96,12 @@ class SSignUpForm extends StatelessWidget {
           SPrivacyPolicyChekbox(),
           SizedBox(height: SSizes.spaceBtwItems),
 
-          SElevatedButton(onPress: ()=>controller.registerUser(),child: Text(SText.createAccount))
-
+          SElevatedButton(
+            onPress: () => controller.registerUser(),
+            child: Text(SText.createAccount),
+          ),
         ],
       ),
     );
   }
 }
-
