@@ -1,4 +1,5 @@
-import 'package:e_commerce_app/features/authentication/views/onboading/onboading.dart';
+
+import 'package:e_commerce_app/buindings/bindings.dart';
 import 'package:e_commerce_app/utils/constans/colors.dart';
 import 'package:e_commerce_app/utils/theam/theam.dart';
 import 'package:flutter/material.dart';
@@ -16,6 +17,7 @@ class MyApp extends StatelessWidget {
         themeMode: ThemeMode.system,  // mobaile ar j theme satai dekhbe
         theme: SAppTheme.lightTheme,
         darkTheme: SAppTheme.darkTheme,
+        initialBinding: SBuinding(),
         home: Scaffold(
           backgroundColor: SColors.primary,
           body:Center(
