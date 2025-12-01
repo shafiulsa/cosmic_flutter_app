@@ -61,4 +61,22 @@ final _db=FirebaseFirestore.instance;
   }
 
 
+
+  // // / [Update] - Function to update user single field
+  Future<void> updateSingleField(Map<String, dynamic> map) async {
+    try {
+      await _db.collection(SKeys.userCollection).doc(AuthenticatonRepository.instance.currentUser!.uid).update(map);
+    } on FirebaseAuthException catch (e) {
+      throw SFirebaseAuthException(e.code).message; // Assuming SFirebaseAuthException is used
+    } on FirebaseException catch (e) {
+      throw SFirebaseException(e.code).message;
+    } on FormatException catch (_) {
+      throw SFormatException();
+    } on PlatformException catch (e) {
+      throw SPlatformException(e.code).message;
+    } catch (e) {
+      throw 'Something went wrong. Please try again';
+    }
+  }
+
 }
