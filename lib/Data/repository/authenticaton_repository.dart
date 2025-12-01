@@ -1,3 +1,4 @@
+import 'package:e_commerce_app/Data/repository/user/user_repository.dart';
 import 'package:e_commerce_app/features/authentication/controllers/onboading/onboading_controller.dart';
 import 'package:e_commerce_app/features/authentication/views/login/login.dart';
 import 'package:e_commerce_app/features/authentication/views/onboading/onboading.dart';
@@ -168,6 +169,24 @@ class AuthenticatonRepository extends GetxController {
     }
   }
 
+  // // / [ForgetPassword] - Send Mail To Reset Password
+  Future<void> reAuthenticateUserWithEmailAndPassword(String email, String password) async {
+    try {
+      AuthCredential credential = EmailAuthProvider.credential(email: email, password: password);
+      await currentUser!.reauthenticateWithCredential(credential);
+
+    } on FirebaseAuthException catch (e) {
+      throw SFirebaseAuthException(e.code).message; // Assuming SFirebaseAuthException is used
+    } on FirebaseException catch (e) {
+      throw SFirebaseException(e.code).message;
+    } on FormatException catch (_) {
+      throw SFormatException();
+    } on PlatformException catch (e) {
+      throw SPlatformException(e.code).message;
+    } catch (e) {
+      throw 'Something went wrong. Please try again';
+    }
+  }
 
 
   /// [Logout] - Logout the user
@@ -180,6 +199,26 @@ class AuthenticatonRepository extends GetxController {
 
       // 2. Navigate to the Login Screen and clear all previous screens
       Get.offAll(() => LoginScreen());
+
+    } on FirebaseAuthException catch(e) {
+      throw SFirebaseAuthException(e.code).message;
+    } on FirebaseException catch(e) {
+      throw SFirebaseException(e.code).message;
+    } on FormatException catch(e) {
+      throw SFormatException();
+    } on PlatformException catch(e) {
+      throw SPlatformException(e.code).message;
+    } catch(e) {
+      throw 'Something went wrong. Please try again';
+    }
+  }
+
+
+  /// [DeleteUser] - delete user account
+  Future<void> deleteAccount() async {
+    try {
+   await UserRepository.instance.removeUserRecord(currentUser!.uid);
+   await _auth.currentUser?.delete();
 
     } on FirebaseAuthException catch(e) {
       throw SFirebaseAuthException(e.code).message;
