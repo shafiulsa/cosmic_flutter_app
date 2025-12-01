@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:e_commerce_app/Data/repository/authenticaton_repository.dart';
 import 'package:e_commerce_app/features/authentication/models/user_model.dart';
 import 'package:e_commerce_app/utils/constans/keys.dart';
 import 'package:e_commerce_app/utils/exceptions/firebase_auth_exceptions.dart';
@@ -31,4 +32,33 @@ final _db=FirebaseFirestore.instance;
       throw 'Something went wrong. Please try again';
     }
   }
+
+
+  /// [Read ]
+  //function to fatch user details
+  Future<UserModel> fetchUserDetails() async {
+    try {
+      // UserCredential userCredential = await _auth
+     final documentSnapshot= await _db.collection(SKeys.userCollection).doc(AuthenticatonRepository.instance.currentUser!.uid).get();
+       if(documentSnapshot.exists){
+         UserModel user= UserModel.fromSnapshot(documentSnapshot);
+         return user;
+       }
+
+       return UserModel.empty();
+
+    } on FirebaseAuthException catch (e) {
+      throw SFirebaseAuthException(e.code).message;
+    } on FirebaseException catch (e) {
+      throw SFirebaseException(e.code).message;
+    } on FormatException catch (e) {
+      throw SFormatException();
+    } on PlatformException catch (e) {
+      throw SPlatformException(e.code).message;
+    } catch (e) {
+      throw 'Something went wrong. Please try again';
+    }
+  }
+
+
 }
