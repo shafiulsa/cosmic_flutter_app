@@ -11,6 +11,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 import '../../utils/exceptions/firebase_auth_exceptions.dart';
 
@@ -86,6 +87,47 @@ class AuthenticatonRepository extends GetxController {
       throw 'Something went wrong. Please try again';
     }
   }
+
+
+  /// [Google Authentication] - Google Sign-In
+  Future<UserCredential> signinWithGoogle() async {
+    try {
+      // Create an instance of GoogleSignIn
+      final GoogleSignIn googleSignIn = GoogleSignIn();
+
+      // Show Popup to select Google account
+      final GoogleSignInAccount? googleAccount = await googleSignIn.signIn();
+
+      // Check if the user cancelled the sign-in
+      if (googleAccount == null) {
+        throw 'Google Sign-In cancelled by user.';
+      }
+
+      // Get the auth details from the request
+      final GoogleSignInAuthentication googleAuth = await googleAccount.authentication;
+
+      // Create credentials using only idToken
+      final OAuthCredential credential = GoogleAuthProvider.credential(
+        idToken: googleAuth.idToken,
+      );
+
+      // Sign In using Google credential
+      final UserCredential userCredential = await _auth.signInWithCredential(credential);
+
+      return userCredential;
+    } on FirebaseAuthException catch (e) {
+      throw SFirebaseAuthException(e.code).message;
+    } on FirebaseException catch (e) {
+      throw SFirebaseException(e.code).message;
+    } on FormatException catch (e) {
+      throw SFormatException();
+    } on PlatformException catch (e) {
+      throw SPlatformException(e.code).message;
+    } catch (e) {
+      throw 'Something went wrong. Please try again. Error: $e';
+    }
+  }
+
 
 
 
