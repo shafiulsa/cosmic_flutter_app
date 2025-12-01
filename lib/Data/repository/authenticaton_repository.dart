@@ -131,7 +131,7 @@ class AuthenticatonRepository extends GetxController {
 
 
 
-  /// Manually Check if email is verified
+  /// [EmailVerification]- Manually Check if email is verified
   Future<void> sendEmailVarification() async{
     try{
        await _auth.currentUser?.sendEmailVerification();
@@ -148,11 +148,33 @@ class AuthenticatonRepository extends GetxController {
     }
   }
 
+
+  /// [ForrgetPassword]- Manually Check if email is verified
+  Future<void> sendPasswordResetEmail(String email) async{
+    try{
+ await _auth.sendPasswordResetEmail(email: email);
+    }on FirebaseAuthException catch (e) {
+      throw SFirebaseAuthException(e.code).message;
+    } on FirebaseException catch (e) {
+      throw SFirebaseException(e.code).message;
+    } on FormatException catch (e) {
+      throw SFormatException();
+    } on PlatformException catch (e) {
+      throw SPlatformException(e.code).message;
+    } catch (e) {
+      throw 'Something went wrong. Please try again';
+    }
+  }
+
+
+
   /// [Logout] - Logout the user
   Future<void> logout() async {
     try {
       // 1. Sign out the user from Firebase
       await FirebaseAuth.instance.signOut();
+      //Google log ar jonna signout
+      await GoogleSignIn().signOut();
 
       // 2. Navigate to the Login Screen and clear all previous screens
       Get.offAll(() => LoginScreen());

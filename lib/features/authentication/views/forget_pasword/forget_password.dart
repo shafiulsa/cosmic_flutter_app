@@ -1,8 +1,9 @@
 import 'package:e_commerce_app/Common/style/padding.dart';
 import 'package:e_commerce_app/Common/widgets/button/elevated_button.dart';
-import 'package:e_commerce_app/features/authentication/views/forget_pasword/reset_password.dart';
+import 'package:e_commerce_app/features/authentication/controllers/forget_password/forget_password_controller.dart';
 import 'package:e_commerce_app/utils/constans/sizes.dart';
 import 'package:e_commerce_app/utils/constans/text.dart';
+import 'package:e_commerce_app/utils/validators/validation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -12,6 +13,7 @@ class ForgetPasswordScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final controller= Get.put(ForgetPasswordController());
     return Scaffold(
       appBar: AppBar(),
       body: SingleChildScrollView(
@@ -29,14 +31,19 @@ class ForgetPasswordScreen extends StatelessWidget {
             SizedBox(height: SSizes.spaceBtwSections*2),
             Column(
               children: [
-                TextFormField(
-                  decoration: InputDecoration(
-                    labelText: SText.email,
-                    prefixIcon: Icon(Icons.email)
+                Form(
+                  key: controller.forgetPasswordFormKey,
+                  child: TextFormField(
+                    controller: controller.email,
+                    validator: (value)=> SValidator.validateEmail(value),
+                    decoration: InputDecoration(
+                      labelText: SText.email,
+                      prefixIcon: Icon(Icons.email)
+                    ),
                   ),
                 ),
                 SizedBox(height: SSizes.spaceBtwItems),
-                SElevatedButton(onPress: ()=>Get.to(()=>ResetPAsswordScreen()),child: Text(SText.submit))
+                SElevatedButton(onPress: ()=> controller.sendPasswordResetEmail(),child: Text(SText.submit))
               ],
             )
 
