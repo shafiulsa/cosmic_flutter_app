@@ -1,18 +1,20 @@
 import 'package:e_commerce_app/Common/style/padding.dart';
 import 'package:e_commerce_app/Common/widgets/button/social_button.dart';
 import 'package:e_commerce_app/Common/widgets/login_signup/form_divider.dart';
+import 'package:e_commerce_app/features/authentication/controllers/login/login_controller.dart';
 import 'package:e_commerce_app/features/authentication/views/login/widgets/login_form.dart';
 import 'package:e_commerce_app/features/authentication/views/login/widgets/login_header.dart';
 import 'package:e_commerce_app/utils/constans/sizes.dart';
 import 'package:e_commerce_app/utils/constans/text.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-
+    Get.put(LoginControlle());
     return Scaffold(
       appBar: AppBar(),
 

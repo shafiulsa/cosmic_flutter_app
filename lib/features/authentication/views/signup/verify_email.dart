@@ -1,9 +1,7 @@
 import 'package:e_commerce_app/Common/style/padding.dart';
 import 'package:e_commerce_app/Common/widgets/button/elevated_button.dart';
-import 'package:e_commerce_app/Common/widgets/scrrens/success_screen.dart';
 import 'package:e_commerce_app/Data/repository/authenticaton_repository.dart';
 import 'package:e_commerce_app/features/authentication/controllers/signup/verify_email_controller.dart';
-import 'package:e_commerce_app/features/authentication/views/login/login.dart';
 import 'package:e_commerce_app/utils/constans/images.dart';
 import 'package:e_commerce_app/utils/constans/sizes.dart';
 import 'package:e_commerce_app/utils/constans/text.dart';

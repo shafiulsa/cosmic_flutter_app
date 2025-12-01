@@ -2,10 +2,9 @@ import 'dart:async';
 
 import 'package:e_commerce_app/Common/widgets/scrrens/success_screen.dart';
 import 'package:e_commerce_app/Data/repository/authenticaton_repository.dart';
-import 'package:e_commerce_app/navigation_menu.dart';
+
 import 'package:e_commerce_app/utils/constans/images.dart';
 import 'package:e_commerce_app/utils/constans/text.dart';
-import 'package:e_commerce_app/utils/exceptions/firebase_auth_exceptions.dart';
 import 'package:e_commerce_app/utils/popups/snackbar_helpers.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
