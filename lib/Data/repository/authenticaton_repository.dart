@@ -3,6 +3,7 @@ import 'package:e_commerce_app/features/authentication/controllers/onboading/onb
 import 'package:e_commerce_app/features/authentication/views/login/login.dart';
 import 'package:e_commerce_app/features/authentication/views/onboading/onboading.dart';
 import 'package:e_commerce_app/features/authentication/views/signup/verify_email.dart';
+import 'package:e_commerce_app/features/personalization/controllers/user_controller.dart';
 import 'package:e_commerce_app/navigation_menu.dart';
 import 'package:e_commerce_app/utils/exceptions/firebase_exceptions.dart';
 import 'package:e_commerce_app/utils/exceptions/format_exceptions.dart';
@@ -30,19 +31,16 @@ class AuthenticatonRepository extends GetxController {
   }
 
   void screenRedirect() {
-    final user=_auth.currentUser;
-    if(user !=null){
-     if(user.emailVerified){
-       //if verified then go to navigation screen
-       Get.offAll(()=> NavigationMenu());
-
-     }
-     else{
-       //if not verified then go to verify email screen
-       Get.offAll(()=> VerifyEmailScreen(email: user.email));
-     }
-    }
-    else{
+    final user = _auth.currentUser;
+    if (user != null) {
+      if (user.emailVerified) {
+        //if verified then go to navigation screen
+        Get.offAll(() => NavigationMenu());
+      } else {
+        //if not verified then go to verify email screen
+        Get.offAll(() => VerifyEmailScreen(email: user.email));
+      }
+    } else {
       localStorage.writeIfNull('isFirstTime', true);
       // IMPORTANT: Put controller before going to onboarding screen
       Get.put(OnBoardingController());
@@ -50,7 +48,6 @@ class AuthenticatonRepository extends GetxController {
           ? Get.to(() => OnboadingScreeen())
           : Get.to(() => LoginScreen());
     }
-
   }
 
   /// [Authentication] - With Email & Password
@@ -73,10 +70,15 @@ class AuthenticatonRepository extends GetxController {
   }
 
   /// [Authentication] - Signin
-  Future<UserCredential> loginWithEmailAndPassword(String email, String password) async {
+  Future<UserCredential> loginWithEmailAndPassword(
+    String email,
+    String password,
+  ) async {
     try {
-      UserCredential userCredential = await _auth
-          .signInWithEmailAndPassword(email: email, password: password);
+      UserCredential userCredential = await _auth.signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
       return userCredential;
     } on FirebaseAuthException catch (e) {
       throw SFirebaseAuthException(e.code).message;
@@ -90,7 +92,6 @@ class AuthenticatonRepository extends GetxController {
       throw 'Something went wrong. Please try again';
     }
   }
-
 
   /// [Google Authentication] - Google Sign-In
   Future<UserCredential> signinWithGoogle() async {
@@ -107,7 +108,8 @@ class AuthenticatonRepository extends GetxController {
       }
 
       // Get the auth details from the request
-      final GoogleSignInAuthentication googleAuth = await googleAccount.authentication;
+      final GoogleSignInAuthentication googleAuth =
+          await googleAccount.authentication;
 
       // Create credentials using only idToken
       final OAuthCredential credential = GoogleAuthProvider.credential(
@@ -115,7 +117,9 @@ class AuthenticatonRepository extends GetxController {
       );
 
       // Sign In using Google credential
-      final UserCredential userCredential = await _auth.signInWithCredential(credential);
+      final UserCredential userCredential = await _auth.signInWithCredential(
+        credential,
+      );
 
       return userCredential;
     } on FirebaseAuthException catch (e) {
@@ -131,14 +135,11 @@ class AuthenticatonRepository extends GetxController {
     }
   }
 
-
-
-
   /// [EmailVerification]- Manually Check if email is verified
-  Future<void> sendEmailVarification() async{
-    try{
-       await _auth.currentUser?.sendEmailVerification();
-    }on FirebaseAuthException catch (e) {
+  Future<void> sendEmailVarification() async {
+    try {
+      await _auth.currentUser?.sendEmailVerification();
+    } on FirebaseAuthException catch (e) {
       throw SFirebaseAuthException(e.code).message;
     } on FirebaseException catch (e) {
       throw SFirebaseException(e.code).message;
@@ -151,12 +152,11 @@ class AuthenticatonRepository extends GetxController {
     }
   }
 
-
   /// [ForrgetPassword]- Manually Check if email is verified
-  Future<void> sendPasswordResetEmail(String email) async{
-    try{
- await _auth.sendPasswordResetEmail(email: email);
-    }on FirebaseAuthException catch (e) {
+  Future<void> sendPasswordResetEmail(String email) async {
+    try {
+      await _auth.sendPasswordResetEmail(email: email);
+    } on FirebaseAuthException catch (e) {
       throw SFirebaseAuthException(e.code).message;
     } on FirebaseException catch (e) {
       throw SFirebaseException(e.code).message;
@@ -170,13 +170,20 @@ class AuthenticatonRepository extends GetxController {
   }
 
   // // / [ForgetPassword] - Send Mail To Reset Password
-  Future<void> reAuthenticateUserWithEmailAndPassword(String email, String password) async {
+  Future<void> reAuthenticateUserWithEmailAndPassword(
+    String email,
+    String password,
+  ) async {
     try {
-      AuthCredential credential = EmailAuthProvider.credential(email: email, password: password);
+      AuthCredential credential = EmailAuthProvider.credential(
+        email: email,
+        password: password,
+      );
       await currentUser!.reauthenticateWithCredential(credential);
-
     } on FirebaseAuthException catch (e) {
-      throw SFirebaseAuthException(e.code).message; // Assuming SFirebaseAuthException is used
+      throw SFirebaseAuthException(
+        e.code,
+      ).message; // Assuming SFirebaseAuthException is used
     } on FirebaseException catch (e) {
       throw SFirebaseException(e.code).message;
     } on FormatException catch (_) {
@@ -188,7 +195,6 @@ class AuthenticatonRepository extends GetxController {
     }
   }
 
-
   /// [Logout] - Logout the user
   Future<void> logout() async {
     try {
@@ -199,38 +205,40 @@ class AuthenticatonRepository extends GetxController {
 
       // 2. Navigate to the Login Screen and clear all previous screens
       Get.offAll(() => LoginScreen());
-
-    } on FirebaseAuthException catch(e) {
+    } on FirebaseAuthException catch (e) {
       throw SFirebaseAuthException(e.code).message;
-    } on FirebaseException catch(e) {
+    } on FirebaseException catch (e) {
       throw SFirebaseException(e.code).message;
-    } on FormatException catch(e) {
+    } on FormatException catch (e) {
       throw SFormatException();
-    } on PlatformException catch(e) {
+    } on PlatformException catch (e) {
       throw SPlatformException(e.code).message;
-    } catch(e) {
+    } catch (e) {
       throw 'Something went wrong. Please try again';
     }
   }
-
 
   /// [DeleteUser] - delete user account
   Future<void> deleteAccount() async {
     try {
-   await UserRepository.instance.removeUserRecord(currentUser!.uid);
-   await _auth.currentUser?.delete();
+      await UserRepository.instance.removeUserRecord(currentUser!.uid);
+      // // Remove profile picture from Cloudinary
+      String publicId = UserController.instance.user.value.publicId;
+      if (publicId.isNotEmpty) {
+        UserRepository.instance.deleteProfilePicture(publicId);
+      }
 
-    } on FirebaseAuthException catch(e) {
+      await _auth.currentUser?.delete();
+    } on FirebaseAuthException catch (e) {
       throw SFirebaseAuthException(e.code).message;
-    } on FirebaseException catch(e) {
+    } on FirebaseException catch (e) {
       throw SFirebaseException(e.code).message;
-    } on FormatException catch(e) {
+    } on FormatException catch (e) {
       throw SFormatException();
-    } on PlatformException catch(e) {
+    } on PlatformException catch (e) {
       throw SPlatformException(e.code).message;
-    } catch(e) {
+    } catch (e) {
       throw 'Something went wrong. Please try again';
     }
   }
-
 }

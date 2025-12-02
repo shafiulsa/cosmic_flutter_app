@@ -3,7 +3,6 @@ import 'package:e_commerce_app/Common/widgets/products/cart/cart_counter_icon.da
 import 'package:e_commerce_app/Common/widgets/shimmer/shimmer_effect.dart';
 import 'package:e_commerce_app/features/personalization/controllers/user_controller.dart';
 import 'package:e_commerce_app/utils/constans/colors.dart';
-import 'package:e_commerce_app/utils/constans/text.dart';
 import 'package:e_commerce_app/utils/helpers/helper_functions.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

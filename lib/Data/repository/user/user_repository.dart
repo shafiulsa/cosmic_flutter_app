@@ -1,6 +1,11 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:crypto/crypto.dart';
 import 'package:e_commerce_app/Data/repository/authenticaton_repository.dart';
 import 'package:e_commerce_app/features/authentication/models/user_model.dart';
+import 'package:e_commerce_app/utils/constans/apis.dart';
 import 'package:e_commerce_app/utils/constans/keys.dart';
 import 'package:e_commerce_app/utils/exceptions/firebase_auth_exceptions.dart';
 import 'package:e_commerce_app/utils/exceptions/firebase_exceptions.dart';
@@ -9,6 +14,7 @@ import 'package:e_commerce_app/utils/exceptions/platform_exceptions.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:dio/dio.dart' as dio;
 
 class UserRepository extends GetxController{
   static UserRepository get instance=>Get.find();
@@ -95,6 +101,50 @@ final _db=FirebaseFirestore.instance;
       throw SPlatformException(e.code).message;
     } catch (e) {
       throw 'Something went wrong. Please try again';
+    }
+  }
+
+  Future<dio.Response> uploadImage(File image) async {
+    try {
+      String api = SApiUrls.uploadApi(SKeys.cloudName);
+      dio.FormData formData = dio.FormData.fromMap({
+        'upload_preset': SKeys.uploadPreset,
+        'folder': SKeys.profileFolder,
+        'file':await dio.MultipartFile.fromFile(image.path, filename: image.path.split('/').last), // Assuming file name logic
+      });
+
+      dio.Response response = await dio.Dio().post(api, data: formData);
+
+      return response;
+    } catch (e) {
+      throw 'Failed to upload profile picture. Please try again';
+    }
+  }
+
+
+// // / [DeleteImage] - Function to delete profile picture
+  Future<dio.Response> deleteProfilePicture(String publicId) async {
+    try {
+      String api = SApiUrls.deleteApi(SKeys.cloudName);
+
+      int timestamp = (DateTime.now().millisecondsSinceEpoch / 1000).round();
+
+      String signatureBase = 'public_id=$publicId&timestamp=$timestamp${SKeys.apiSecret}';
+      String signature = sha1.convert(utf8.encode(signatureBase)).toString();
+
+      final formData = dio.FormData.fromMap({
+        'public_id': publicId,
+        'api_key': SKeys.apiKey,
+        'timestamp': timestamp,
+        'signature': signature
+      });
+
+      dio.Response response = await dio.Dio().post(api, data: formData);
+
+      return response;
+    } catch(e) {
+      // ... error handling
+      throw 'Something wend wrong ,Please try again later';
     }
   }
 

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:e_commerce_app/Data/repository/authenticaton_repository.dart';
 import 'package:e_commerce_app/Data/repository/user/user_repository.dart';
 import 'package:e_commerce_app/features/authentication/models/user_model.dart';
@@ -11,6 +13,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:dio/dio.dart' as dio;
+import 'package:image_picker/image_picker.dart';
 
 class UserController extends GetxController {
   static UserController get instance => Get.find();
@@ -18,15 +22,14 @@ class UserController extends GetxController {
   //variable
   final _userRepository = Get.put(UserRepository());
   Rx<UserModel> user = UserModel.empty().obs;
-  RxBool profileLoading=false.obs;
+  RxBool profileLoading = false.obs;
 
 
   //Re-authenticate Form variable
-  final email=TextEditingController();
-  final password=TextEditingController();
-  final reAuthFormKey=GlobalKey<FormState>();
-  RxBool isPasswordVisible=false.obs;
-
+  final email = TextEditingController();
+  final password = TextEditingController();
+  final reAuthFormKey = GlobalKey<FormState>();
+  RxBool isPasswordVisible = false.obs;
 
 
   @override
@@ -38,24 +41,27 @@ class UserController extends GetxController {
   /// Function to save user record
   Future<void> saveUserRecord(UserCredential userCredential) async {
     try {
-      // Convert Full Name to First Name & Last Name
-      final nameParts = UserModel.nameParts(userCredential.user!.displayName);
-      final username =
-          '${userCredential.user!.displayName}2312637'; // Placeholder UID
+      await fetchUserDetails();
+      if (user.value.id.isEmpty) {
+        // Convert Full Name to First Name & Last Name
+        final nameParts = UserModel.nameParts(userCredential.user!.displayName);
+        final username =
+            '${userCredential.user!.displayName}2312637'; // Placeholder UID
 
-      // create user model
-      UserModel userModel = UserModel(
-        id: userCredential.user!.uid,
-        firstName: nameParts[0],
-        lastName: nameParts.length > 1 ? nameParts.sublist(1).join(' ') : '',
-        username: username,
-        email: userCredential.user!.email ?? '',
-        phoneNumber: userCredential.user!.phoneNumber ?? '',
-        profilePicture: userCredential.user!.photoURL ?? '',
-      );
+        // create user model
+        UserModel userModel = UserModel(
+          id: userCredential.user!.uid,
+          firstName: nameParts[0],
+          lastName: nameParts.length > 1 ? nameParts.sublist(1).join(' ') : '',
+          username: username,
+          email: userCredential.user!.email ?? '',
+          phoneNumber: userCredential.user!.phoneNumber ?? '',
+          profilePicture: userCredential.user!.photoURL ?? '',
+        );
 
-      // save user record
-      await _userRepository.saveUserRecord(userModel);
+        // save user record
+        await _userRepository.saveUserRecord(userModel);
+      }
     } catch (e) {
       // Error is typically handled by showing a warning, as the auth step succeeded
       SSnackBarHelpers.warningSnackBar(
@@ -68,7 +74,7 @@ class UserController extends GetxController {
   /// Function to fetch user details
   Future<void> fetchUserDetails() async {
     try {
-      profileLoading.value=true;
+      profileLoading.value = true;
       // Fetch the UserModel from the user repository/database service
       UserModel user = await _userRepository.fetchUserDetails();
 
@@ -78,11 +84,10 @@ class UserController extends GetxController {
       // If fetching fails, set the user state to an empty/default model
       user(UserModel.empty());
     }
-    finally{
-      profileLoading.value=false;
+    finally {
+      profileLoading.value = false;
     }
   }
-
 
 
   void deleteAccountWarningPopup() {
@@ -92,16 +97,19 @@ class UserController extends GetxController {
         middleText: 'Are you sure you want to delete account permanently?',
         confirm: ElevatedButton(
           onPressed: () => deleteUserAccount(),
-          style: ElevatedButton.styleFrom(backgroundColor: Colors.red, side: BorderSide(color: Colors.red)), // Assuming BorderSide Color
+          style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.red, side: BorderSide(color: Colors.red)),
+          // Assuming BorderSide Color
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: SSizes.lg),
             child: Text('Delete'),
           ), // Padding
-        ), // ElevatedButton
-        cancel: OutlinedButton(onPressed: () => Get.back(), child: Text('Cancel'))
+        ),
+        // ElevatedButton
+        cancel: OutlinedButton(
+            onPressed: () => Get.back(), child: Text('Cancel'))
     );
   }
-
 
 
   Future<void> deleteUserAccount() async {
@@ -111,7 +119,10 @@ class UserController extends GetxController {
 
       // // Re-Authentication User
       final authRepository = AuthenticatonRepository.instance;
-      final provider = authRepository.currentUser!.providerData.map((e) => e.providerId).first;
+      final provider = authRepository.currentUser!
+          .providerData
+          .map((e) => e.providerId)
+          .first;
 
       // // If Google Provider
       if (provider == 'google.com') {
@@ -122,14 +133,13 @@ class UserController extends GetxController {
       }
       // // If Email/Password Provider
       else if (provider == 'password') {
-     SFullScreenLoader.stopLoading();
-     Get.to(()=>ReAuthenticationUserForm());
-
+        SFullScreenLoader.stopLoading();
+        Get.to(() => ReAuthenticationUserForm());
       }
-    } catch(e) {
+    } catch (e) {
       // ... error handling
       SFullScreenLoader.stopLoading();
-      SSnackBarHelpers.errorSnackBar(title: 'Error',message: e.toString());
+      SSnackBarHelpers.errorSnackBar(title: 'Error', message: e.toString());
     }
   }
 
@@ -147,13 +157,17 @@ class UserController extends GetxController {
       }
 
       // // Form Validation
-      if (!reAuthFormKey.currentState!.validate()) { // Assuming reAuthFormKey is the variable name
+      if (!reAuthFormKey.currentState!
+          .validate()) { // Assuming reAuthFormKey is the variable name
         SFullScreenLoader.stopLoading();
         return;
       }
 
       //Reauthenticate User with email and password
-      await AuthenticatonRepository.instance.reAuthenticateUserWithEmailAndPassword(email.text.trim(), password.text.trim());
+      await AuthenticatonRepository.instance
+          .reAuthenticateUserWithEmailAndPassword(
+          email.text.trim(), password.text.trim());
+
       /// Delete account
       await AuthenticatonRepository.instance.deleteAccount();
 
@@ -161,12 +175,51 @@ class UserController extends GetxController {
       SFullScreenLoader.stopLoading();
 
       //Redirect
-      Get.offAll(()=>LoginScreen());
-
-    } catch(e) {
+      Get.offAll(() => LoginScreen());
+    } catch (e) {
       //stop Loading
       SFullScreenLoader.stopLoading();
-      SSnackBarHelpers.errorSnackBar(title: 'Faield',message: e.toString());
+      SSnackBarHelpers.errorSnackBar(title: 'Faield', message: e.toString());
+    }
+  }
+
+
+  Future<void> updateUserProfilePicture() async {
+    try {
+// // Pick Image from Gallery
+      XFile? image = await ImagePicker().pickImage(source: ImageSource.gallery, maxHeight: 512, maxWidth: 512); // Assuming maxWidth: 512
+      if (image == null) return;
+
+// // Convert XFile to File
+      File file = File(image.path);
+ // delete user current profile pciture
+      if(user.value.publicId.isNotEmpty){
+        await _userRepository.deleteProfilePicture(user.value.publicId);
+      }
+// // Upload profile Picture to Cloudinary
+      dio.Response response = await _userRepository.uploadImage(file);
+
+      if (response.statusCode == 200) {
+        // // Get Data
+        final data = response.data;
+        final imageUrl = data['url'];
+        final publicId = data['public_id']; // Variable publicId is not used in the snippet shown
+
+        // // update profile picture from Fire store
+        await _userRepository.updateSingleField({'profilePicture': imageUrl,'publicId':publicId});
+
+        user.value.profilePicture=imageUrl;
+        user.value.publicId=publicId;
+
+        user.refresh();
+
+        //Show success message
+        SSnackBarHelpers.successSnackBar(title: "Congratulation",message: 'Profile pricure update successfully');
+      } else {
+       throw 'Failed to upload profile picture . Please try anaing later';
+      }
+    } catch (e) {
+ SSnackBarHelpers.errorSnackBar(title: "Failed",message: e.toString());
     }
   }
 }
