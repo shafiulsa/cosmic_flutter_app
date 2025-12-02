@@ -1,3 +1,5 @@
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:e_commerce_app/Common/widgets/shimmer/shimmer_effect.dart';
 import 'package:e_commerce_app/utils/constans/colors.dart';
 import 'package:e_commerce_app/utils/constans/sizes.dart';
 import 'package:flutter/material.dart';
@@ -46,13 +48,23 @@ class SCircularImage extends StatelessWidget {
       // BoxDecoration
       child: ClipRRect(
         borderRadius: BorderRadius.circular(100),
-        child: Image(
+        // child: Image(
+        //   fit: fit,
+        //   image: isNetworkImage
+        //       ? CachedNetworkImage(imageUrl: image)
+        //       : AssetImage(image) as ImageProvider,
+        // ),
+        child: isNetworkImage
+            ? CachedNetworkImage(
           fit: fit,
-          image: isNetworkImage
-              ? NetworkImage(image)
-              : AssetImage(image) as ImageProvider,
-        ),
+          color: overlayColor,
+          progressIndicatorBuilder: (context, url, progress) => SShimmerEffect(width: 55, height: 55),
+          errorWidget: (context, url, error) => Icon(Icons.error),
+          imageUrl: image, // CachedNetworkImage
+        )
+            : Image(fit: fit, image: AssetImage(image)),
       ), // ClipRRect
+      // ClipRRect
     ); // Container
   }
 }

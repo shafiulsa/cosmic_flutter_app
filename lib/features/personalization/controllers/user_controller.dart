@@ -30,6 +30,7 @@ class UserController extends GetxController {
   final password = TextEditingController();
   final reAuthFormKey = GlobalKey<FormState>();
   RxBool isPasswordVisible = false.obs;
+  RxBool isProfileUploading=false.obs;
 
 
   @override
@@ -186,7 +187,9 @@ class UserController extends GetxController {
 
   Future<void> updateUserProfilePicture() async {
     try {
-// // Pick Image from Gallery
+
+      isProfileUploading.value=true;
+ // Pick Image from Gallery
       XFile? image = await ImagePicker().pickImage(source: ImageSource.gallery, maxHeight: 512, maxWidth: 512); // Assuming maxWidth: 512
       if (image == null) return;
 
@@ -219,7 +222,11 @@ class UserController extends GetxController {
        throw 'Failed to upload profile picture . Please try anaing later';
       }
     } catch (e) {
+
  SSnackBarHelpers.errorSnackBar(title: "Failed",message: e.toString());
+    }
+    finally{
+      isProfileUploading.value=false;
     }
   }
 }
