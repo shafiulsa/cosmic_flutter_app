@@ -1,9 +1,7 @@
+import 'package:e_commerce_app/Common/widgets/images/circuler_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
-import '../../../utils/constans/colors.dart';
 import '../../../utils/constans/sizes.dart';
-import '../custome_shape/circular_container.dart';
 
 class SVerticalImageText extends StatelessWidget {
   const SVerticalImageText({
@@ -22,23 +20,16 @@ class SVerticalImageText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //GestureDetector is a Flutter widget used to detect user interactions like tap, double tap, long press, swipe, drag, etc.
-    //
-    // ✅ What GestureDetector Does
-    //
-    // It wraps any widget and listens for gestures:
-    // Tap, Double tap,Long press,Horizontal drag,Vertical drag,Pan,Scale
     return GestureDetector(
       onTap: onTap,
       child: Column(
         children: [
           ///
-          SCircularContainer(
+          SCircularImage(
+            image: image,
             height: 56,
             width: 56,
-            backgroundColor: backGroundColor ?? SColors.white,
-            padding: EdgeInsets.all(SSizes.sm),
-            child: Image(image: AssetImage(image), fit: BoxFit.cover),
+            isNetworkImage: true,
           ),
 
           SizedBox(height: SSizes.spaceBtwItems / 2),

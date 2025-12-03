@@ -1,6 +1,7 @@
 import 'package:e_commerce_app/Common/widgets/appbar/tab_bar.dart';
 import 'package:e_commerce_app/Common/widgets/brand/brand_cart.dart';
 import 'package:e_commerce_app/Common/widgets/text/section_heading.dart';
+import 'package:e_commerce_app/features/shop/controllers/category/catrgory_controller.dart';
 import 'package:e_commerce_app/features/shop/views/brands/all_brands.dart';
 import 'package:e_commerce_app/features/shop/views/store/widets/category_tab.dart';
 import 'package:e_commerce_app/features/shop/views/store/widets/sotre_primary_header.dart';
@@ -13,9 +14,9 @@ class StoreScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
+  final controller= CategoryController.instance;
     return DefaultTabController(
-      length: 5,
+      length: controller.featuredCategories.length,
       child: Scaffold(
         body: NestedScrollView(
           headerSliverBuilder: (context, innerBoxIsScrolled) {
@@ -65,25 +66,16 @@ class StoreScreen extends StatelessWidget {
                 ),
                 //Bottom a ja dibo ta scroll a appbar ar por stack hoya jabe
                 bottom: STabBar(
-                  tabs: [
-                    Tab(child: Text("Sports")),
-                    Tab(child: Text("Sports")),
-                    Tab(child: Text("Sports")),
-                    Tab(child: Text("Sports")),
-                    Tab(child: Text("Sports")),
-                  ],
+                  tabs: controller.featuredCategories.map((category)=>Tab(child: Text(category.name))).toList()
+
                 ),
               ),
             ];
           },
           body: TabBarView(
-            children: [
-              SCatagoryTab(),
-              SCatagoryTab(),
-              SCatagoryTab(),
-              SCatagoryTab(),
-              SCatagoryTab(),
-            ],
+
+            children:controller.featuredCategories.map((category)=>SCatagoryTab()).toList()
+
           ), // TabBarView
         ), // NestedScrollView
       ),

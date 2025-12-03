@@ -28,6 +28,9 @@ class AuthenticatonRepository extends GetxController {
   void onReady() {
     FlutterNativeSplash.remove();
     screenRedirect();
+
+    // ata ak bar  e chalabo data fetch ar jonna
+    // Get.put(CategoryRepository()).uploadCategories(SDummyData.categories);
   }
 
   void screenRedirect() {
