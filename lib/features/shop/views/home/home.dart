@@ -60,9 +60,7 @@ class HomeScreen extends StatelessWidget {
               child: Column(
                 children: [
                   // Banner
-                  SPromoSlider(
-                    banners: [SImages.homeBanner1,SImages.homeBanner2,SImages.homeBanner3,SImages.homeBanner4,SImages.homeBanner5],
-                  ),
+                  SPromoSlider(),
                   ///section Heading
                   SizedBox(height: SSizes.spaceBtwItems),
                   SSectionHeading(title: "Populer Products",showActionButton: true,onPressed: ()=>Get.to(()=>AllProductsScreen()),),

@@ -29,8 +29,15 @@ class AuthenticatonRepository extends GetxController {
     FlutterNativeSplash.remove();
     screenRedirect();
 
-    // ata ak bar  e chalabo data fetch ar jonna
+    // admin panel na thakay ai way use korteci
+
+    // ata ak bar  e chalabo  catagory data  firebase firestore a fetch ar jonna
     // Get.put(CategoryRepository()).uploadCategories(SDummyData.categories);
+
+
+    // ata ak bar  e chalabo  banner data  firebase firestore a fetch ar jonna
+    // Get.put(BannerRepository()).uploadBanners(SDummyData.banner);
+
   }
 
   void screenRedirect() {

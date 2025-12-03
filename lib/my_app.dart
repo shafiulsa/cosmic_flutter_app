@@ -1,5 +1,6 @@
 
 import 'package:e_commerce_app/buindings/bindings.dart';
+import 'package:e_commerce_app/routes/app_routes.dart';
 import 'package:e_commerce_app/utils/constans/colors.dart';
 import 'package:e_commerce_app/utils/theam/theam.dart';
 import 'package:flutter/material.dart';
@@ -18,6 +19,7 @@ class MyApp extends StatelessWidget {
         theme: SAppTheme.lightTheme,
         darkTheme: SAppTheme.darkTheme,
         initialBinding: SBuinding(),
+        getPages: SAppRoutes.screens,
         home: Scaffold(
           backgroundColor: SColors.primary,
           body:Center(

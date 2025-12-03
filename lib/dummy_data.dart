@@ -1,9 +1,22 @@
 
+import 'package:e_commerce_app/features/shop/models/banners_model.dart';
 import 'package:e_commerce_app/features/shop/models/category_model.dart';
+import 'package:e_commerce_app/routes/routes.dart';
 import 'package:e_commerce_app/utils/constans/images.dart';
 
 class SDummyData {
+  /// List of all Banners
 
+  static final List<BannerModel> banner = [
+    BannerModel(imageUrl: SImages.homeBanner1, targetScreen: SRoutes.order, active: true),
+    BannerModel(imageUrl: SImages.homeBanner2, targetScreen: SRoutes.cart, active: true),
+    BannerModel(imageUrl: SImages.homeBanner3, targetScreen: SRoutes.wishlist, active: true),
+    BannerModel(imageUrl: SImages.homeBanner4, targetScreen: SRoutes.productDetail, active: true),
+    BannerModel(imageUrl: SImages.homeBanner5, targetScreen: SRoutes.profile, active: true),
+  ];
+  
+  
+  
   /// List of all Categories
   static final List<CategoryModel> categories = [
     /// Parent Categories

@@ -4,7 +4,6 @@ import 'package:e_commerce_app/features/shop/controllers/category/catrgory_contr
 import 'package:e_commerce_app/features/shop/models/category_model.dart';
 import 'package:e_commerce_app/features/shop/views/sub_category/sub_category.dart';
 import 'package:e_commerce_app/utils/constans/colors.dart';
-import 'package:e_commerce_app/utils/constans/images.dart';
 import 'package:e_commerce_app/utils/constans/sizes.dart';
 import 'package:e_commerce_app/utils/constans/text.dart';
 import 'package:flutter/material.dart';

@@ -45,7 +45,10 @@ class SRoundedImage extends StatelessWidget {
         ),
         child: ClipRRect(
           borderRadius: BorderRadius.circular(SSizes.md),
-          child: Image(image: AssetImage(imageUrl)), // ClipRRect
+          // child: Image(image: AssetImage(imageUrl)), // ClipRRect
+          child: Image( image: isNetworkImage
+              ? NetworkImage(imageUrl)
+              : AssetImage(imageUrl) as ImageProvider)
         ),
       ),
     );
