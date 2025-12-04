@@ -4,6 +4,7 @@ class SKeys{
   static const String userCollection = 'Users';
   static const String  categoryCollection = 'Categories';
   static const String bannerCollection = 'Banners';
+  static const String brandsCollection = 'Brands';
 
   static const String rememberMeEmail='RememberEmail';
   static const String rememberMePassword='RememberPassword';
@@ -18,5 +19,6 @@ class SKeys{
 
   static const String categoryFolder = 'Category Pictures';
   static const String bannersFolder = 'Banners Images';
+  static const String brandsFolder = 'Brands Images';
 
 }

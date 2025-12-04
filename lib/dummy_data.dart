@@ -1,5 +1,6 @@
 
 import 'package:e_commerce_app/features/shop/models/banners_model.dart';
+import 'package:e_commerce_app/features/shop/models/brand_model.dart';
 import 'package:e_commerce_app/features/shop/models/category_model.dart';
 import 'package:e_commerce_app/routes/routes.dart';
 import 'package:e_commerce_app/utils/constans/images.dart';
@@ -57,4 +58,86 @@ class SDummyData {
     CategoryModel(id: '23', name: 'Soccer', image: SImages.soccerIcon, parentId: '6', isFeatured: false),
   ];
 
+
+  /// List of all Brands
+  static final List<BrandModel> brands = [
+    BrandModel(
+        id: '1',
+        image: SImages.nikeLogo,
+        name: 'Nike',
+        productsCount: 2,
+        isFeatured: true),
+    BrandModel(
+        id: '2',
+        image: SImages.adidasLogo,
+        name: 'Adidas',
+        productsCount: 2,
+        isFeatured: true),
+    BrandModel(
+        id: '3',
+        image: SImages.appleLogo,
+        name: 'Apple',
+        productsCount: 8,
+        isFeatured: true),
+    BrandModel(
+        id: '4',
+        image: SImages.bataLogo,
+        name: 'Bata',
+        productsCount: 4,
+        isFeatured: true),
+    BrandModel(
+        id: '5',
+        image: SImages.bloodyLogo,
+        name: 'Bloody',
+        productsCount: 9,
+        isFeatured: false),
+    BrandModel(
+        id: '6',
+        image: SImages.breakoutLogo,
+        name: 'Breakout',
+        productsCount: 7,
+        isFeatured: true),
+    BrandModel(
+        id: '7',
+        image: SImages.dariMoochLogo,
+        name: 'Dari Mooch',
+        productsCount: 4,
+        isFeatured: true),
+    BrandModel(
+        id: '8',
+        image: SImages.interWoodLogo,
+        name: 'Interwood',
+        productsCount: 9,
+        isFeatured: false),
+    BrandModel(
+        id: '9',
+        image: SImages.hpLogo,
+        name: 'HP',
+        productsCount: 4,
+        isFeatured: false),
+    BrandModel(
+        id: '10',
+        image: SImages.jLogo,
+        name: 'J.',
+        productsCount: 8,
+        isFeatured: true),
+    BrandModel(
+        id: '11',
+        image: SImages.nDURELogo,
+        name: 'NDURE',
+        productsCount: 4,
+        isFeatured: true),
+    BrandModel(
+        id: '12',
+        image: SImages.northStarLogo,
+        name: 'NorthStar',
+        productsCount: 2,
+        isFeatured: true),
+    BrandModel(
+        id: '13',
+        image: SImages.poloLogo,
+        name: 'Polo',
+        productsCount: 2,
+        isFeatured: true),
+  ];
 }

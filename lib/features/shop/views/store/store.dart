@@ -1,7 +1,10 @@
 import 'package:e_commerce_app/Common/widgets/appbar/tab_bar.dart';
 import 'package:e_commerce_app/Common/widgets/brand/brand_cart.dart';
+import 'package:e_commerce_app/Common/widgets/shimmer/brands_shimmer.dart';
 import 'package:e_commerce_app/Common/widgets/text/section_heading.dart';
+import 'package:e_commerce_app/features/shop/controllers/brand/brand_controller.dart';
 import 'package:e_commerce_app/features/shop/controllers/category/catrgory_controller.dart';
+import 'package:e_commerce_app/features/shop/models/brand_model.dart';
 import 'package:e_commerce_app/features/shop/views/brands/all_brands.dart';
 import 'package:e_commerce_app/features/shop/views/store/widets/category_tab.dart';
 import 'package:e_commerce_app/features/shop/views/store/widets/sotre_primary_header.dart';
@@ -14,7 +17,8 @@ class StoreScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-  final controller= CategoryController.instance;
+    final controller = CategoryController.instance;
+    final brandController = Get.put(BrandController());
     return DefaultTabController(
       length: controller.featuredCategories.length,
       child: Scaffold(
@@ -43,20 +47,36 @@ class StoreScreen extends StatelessWidget {
                             SSectionHeading(
                               title: "Brand",
                               showActionButton: true,
-                              onPressed: ()=>Get.to(()=>BrandScreen()),
+                              onPressed: () => Get.to(() => BrandScreen()),
                             ),
 
                             // Brand Card
                             SizedBox(
                               height: SSizes.brandCardHeight,
-                              child: ListView.separated(
-                                separatorBuilder: (context, index) =>
-                                    SizedBox(width: SSizes.spaceBtwItems),
-                                shrinkWrap: true,
-                                itemCount: 10,
-                                scrollDirection: Axis.horizontal,
-                                itemBuilder: (context, index) => SBrandCart(),
-                              ),
+                              child: Obx(() {
+                                if (brandController.isLoading.value) {
+                                  return SBrandsShimmer();
+                                }
+                                if (brandController.featuredBrands.isEmpty) {
+                                  return Text('Brand Not found');
+                                }
+                                return ListView.separated(
+                                  separatorBuilder: (context, index) =>
+                                      SizedBox(width: SSizes.spaceBtwItems),
+                                  shrinkWrap: true,
+                                  itemCount:
+                                      brandController.featuredBrands.length,
+                                  scrollDirection: Axis.horizontal,
+                                  itemBuilder: (context, index) {
+                                    BrandModel brand =
+                                        brandController.featuredBrands[index];
+                                    return SizedBox(
+                                      width: SSizes.brandCardWidth,
+                                      child: SBrandCart(brand: brand),
+                                    );
+                                  },
+                                );
+                              }),
                             ),
                           ],
                         ),
@@ -66,16 +86,17 @@ class StoreScreen extends StatelessWidget {
                 ),
                 //Bottom a ja dibo ta scroll a appbar ar por stack hoya jabe
                 bottom: STabBar(
-                  tabs: controller.featuredCategories.map((category)=>Tab(child: Text(category.name))).toList()
-
+                  tabs: controller.featuredCategories
+                      .map((category) => Tab(child: Text(category.name)))
+                      .toList(),
                 ),
               ),
             ];
           },
           body: TabBarView(
-
-            children:controller.featuredCategories.map((category)=>SCatagoryTab()).toList()
-
+            children: controller.featuredCategories
+                .map((category) => SCatagoryTab())
+                .toList(),
           ), // TabBarView
         ), // NestedScrollView
       ),

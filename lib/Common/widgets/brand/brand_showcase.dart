@@ -1,4 +1,5 @@
 import 'package:e_commerce_app/Common/widgets/custome_shape/rounded_container.dart';
+import 'package:e_commerce_app/features/shop/models/brand_model.dart';
 import 'package:e_commerce_app/utils/constans/colors.dart';
 import 'package:e_commerce_app/utils/constans/sizes.dart';
 import 'package:flutter/material.dart';
@@ -24,7 +25,7 @@ final List<String> images;
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SBrandCart(showBorder: false),
+          SBrandCart(showBorder: false,brand: BrandModel.empty()),
       //     Row(
       //         children: [
       //           // buildBrandImage(dark),

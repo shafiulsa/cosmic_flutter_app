@@ -9,7 +9,6 @@ import 'package:e_commerce_app/features/shop/views/home/widgets/home_appbar.dart
 import 'package:e_commerce_app/features/shop/views/home/widgets/home_catagories.dart';
 import 'package:e_commerce_app/Common/widgets/custome_shape/primary_header_container.dart';
 import 'package:e_commerce_app/features/shop/views/home/widgets/promo_slider.dart';
-import 'package:e_commerce_app/utils/constans/images.dart';
 import 'package:e_commerce_app/utils/constans/sizes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

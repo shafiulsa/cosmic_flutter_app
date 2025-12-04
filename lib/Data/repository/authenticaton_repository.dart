@@ -1,3 +1,4 @@
+
 import 'package:e_commerce_app/Data/repository/user/user_repository.dart';
 import 'package:e_commerce_app/features/authentication/controllers/onboading/onboading_controller.dart';
 import 'package:e_commerce_app/features/authentication/views/login/login.dart';
@@ -37,6 +38,9 @@ class AuthenticatonRepository extends GetxController {
 
     // ata ak bar  e chalabo  banner data  firebase firestore a fetch ar jonna
     // Get.put(BannerRepository()).uploadBanners(SDummyData.banner);
+
+    // // ata ak bar  e chalabo  brand data  firebase firestore a fetch ar jonna
+    //  Get.put(BrandRepository()).uploadBrands(SDummyData.brands);
 
   }
 
