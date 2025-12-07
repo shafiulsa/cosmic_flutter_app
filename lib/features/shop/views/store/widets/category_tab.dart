@@ -1,4 +1,5 @@
 import 'package:e_commerce_app/Common/widgets/text/section_heading.dart';
+import 'package:e_commerce_app/features/shop/models/product_model.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../Common/widgets/brand/brand_showcase.dart';
@@ -49,7 +50,7 @@ class SCatagoryTab extends StatelessWidget {
               SGridLayout(
                 itemCount: 4,
                 itemBuilder: (context, index) {
-                  return SProductCartVertical();
+                  return SProductCartVertical(product: ProductModel.empty());
                 },
               ),
 

@@ -13,6 +13,8 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+
     return GetMaterialApp(
         debugShowCheckedModeBanner: false, // digguber likha ta tule dai
         themeMode: ThemeMode.system,  // mobaile ar j theme satai dekhbe

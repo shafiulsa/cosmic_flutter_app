@@ -13,7 +13,7 @@ class CloundinaryServices extends GetxController {
   //variable
   final _dio = dio.Dio();
 
-/// [UploadImage] -----------------
+  /// [UploadImage] -----------------
   Future<dio.Response> uploadImage(File image,String folderName) async {
     try {
       String api = SApiUrls.uploadApi(SKeys.cloudName);

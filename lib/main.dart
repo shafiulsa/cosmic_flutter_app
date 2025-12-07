@@ -9,16 +9,19 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
 Future<void> main() async {
+
   /// Widgets Binding
   final widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
 // Flutter native splash
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
-
+  print("Initializing GetStorage...");
   // Get storage initialize
  await GetStorage.init();
+  print("GetStorage initialized!");
   //firebase inititalization
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform).then((value) {
-   Get.put(AuthenticatonRepository());   // jokhone firebase k paba tokhone AuthenticatonRepository repositary ar OnReady method call hobe
+    print("Firebase initialized, putting AuthenticatonRepository");
+    Get.put(AuthenticatonRepository());   // jokhone firebase k paba tokhone AuthenticatonRepository repositary ar OnReady method call hobe
   });
 
   // the divide will not auto roated in phone roatation

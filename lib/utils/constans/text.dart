@@ -1,6 +1,6 @@
 class SText{
   SText._();
-  static const String currency = '\$';
+  static const String currency = '\৳';
 
   //onboading title
   static const String onBoardingTitle1 = 'Welcome to UP Store';

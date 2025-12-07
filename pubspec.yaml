@@ -11,6 +11,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  http: ^1.6.0
   cupertino_icons: ^1.0.8
   flutter_native_splash: ^2.4.7   #splash screen ar jonna
   smooth_page_indicator: ^1.2.1  #page ar change ta jano bujha jay sata bujhar jonna

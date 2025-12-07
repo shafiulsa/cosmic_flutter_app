@@ -1,5 +1,8 @@
 
+import 'package:e_commerce_app/Data/repository/brand/brand_repository.dart';
+import 'package:e_commerce_app/Data/repository/product/product_repository.dart';
 import 'package:e_commerce_app/Data/repository/user/user_repository.dart';
+import 'package:e_commerce_app/dummy_data.dart';
 import 'package:e_commerce_app/features/authentication/controllers/onboading/onboading_controller.dart';
 import 'package:e_commerce_app/features/authentication/views/login/login.dart';
 import 'package:e_commerce_app/features/authentication/views/onboading/onboading.dart';
@@ -27,6 +30,8 @@ class AuthenticatonRepository extends GetxController {
 
   @override
   void onReady() {
+    super.onReady();
+    print("onReady called!");
     FlutterNativeSplash.remove();
     screenRedirect();
 
@@ -40,7 +45,12 @@ class AuthenticatonRepository extends GetxController {
     // Get.put(BannerRepository()).uploadBanners(SDummyData.banner);
 
     // // ata ak bar  e chalabo  brand data  firebase firestore a fetch ar jonna
-    //  Get.put(BrandRepository()).uploadBrands(SDummyData.brands);
+   // Get.put(BrandRepository()).uploadBrands(SDummyData.brands);
+
+    // // ata ak bar  e chalabo  Product data  firebase firestore a fetch ar jonna
+
+    // Get.put(ProductRepository()).uploadProducts(SDummyData.products);
+
 
   }
 

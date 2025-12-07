@@ -2,6 +2,7 @@ import 'package:e_commerce_app/Common/style/padding.dart';
 import 'package:e_commerce_app/Common/widgets/appbar/appbar.dart';
 import 'package:e_commerce_app/Common/widgets/layouts/grid_layout.dart';
 import 'package:e_commerce_app/Common/widgets/products/product_cards/product_card_vertical.dart';
+import 'package:e_commerce_app/features/shop/models/product_model.dart';
 import 'package:e_commerce_app/utils/constans/sizes.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
@@ -56,7 +57,7 @@ class SSortAbleProducts extends StatelessWidget {
       SizedBox(height: SSizes.spaceBtwSections),
     
         // Products
-        SGridLayout(itemCount: 10, itemBuilder: (context, index) => SProductCartVertical(),)
+        SGridLayout(itemCount: 10, itemBuilder: (context, index) => SProductCartVertical(product: ProductModel.empty(),),)
       ],
     );
   }

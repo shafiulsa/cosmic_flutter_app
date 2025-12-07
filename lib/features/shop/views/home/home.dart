@@ -1,9 +1,10 @@
-
 import 'package:e_commerce_app/Common/widgets/layouts/grid_layout.dart';
 import 'package:e_commerce_app/Common/widgets/products/product_cards/product_card_vertical.dart';
 import 'package:e_commerce_app/Common/widgets/text/section_heading.dart';
 import 'package:e_commerce_app/Common/widgets/textfield/serach_bar.dart';
 import 'package:e_commerce_app/features/shop/controllers/home/home_controller.dart';
+import 'package:e_commerce_app/features/shop/controllers/product/product_controller.dart';
+import 'package:e_commerce_app/features/shop/models/product_model.dart';
 import 'package:e_commerce_app/features/shop/views/all_products/all_products.dart';
 import 'package:e_commerce_app/features/shop/views/home/widgets/home_appbar.dart';
 import 'package:e_commerce_app/features/shop/views/home/widgets/home_catagories.dart';
@@ -18,6 +19,7 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller= Get.put(HomeController());
+    final productController=Get.put(ProductController());
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -29,7 +31,7 @@ class HomeScreen extends StatelessWidget {
                   color: Colors.yellow, // Background color
                   child: SizedBox(height: SSizes.homePrimaryHeaderHeight + 10),
                 ),
-        
+
                 //Primary Header Container
                 SPrimaryHeaderContainer(
                   height: SSizes.homePrimaryHeaderHeight,
@@ -39,7 +41,7 @@ class HomeScreen extends StatelessWidget {
                       children: [
                         //AppBar
                         SHomeAppBar(),
-        
+
                         // Product Catagory
                         SHomeCatagories(),
 
@@ -52,7 +54,7 @@ class HomeScreen extends StatelessWidget {
               ],
             ),
             // Lower Part
-        
+
             //Lower part
             Padding(
               padding: const EdgeInsets.all(SSizes.defaultSpace),
@@ -66,14 +68,27 @@ class HomeScreen extends StatelessWidget {
                   SizedBox(height: SSizes.spaceBtwItems),
 
                   /// Vertical Product Card
-                 // GridView.builder
-                  SGridLayout(
-                    itemCount: 6,
-                    itemBuilder: (context, index){
-                      return SProductCartVertical();
-                    },
+                  // GridView.builder
+
+                  Obx(
+                          (){
+                        if(productController.isLoading.value){
+                          return const Center(child: CircularProgressIndicator());
+                        }
+
+                        if(productController.featuredProducts.isEmpty){
+                          return Center(child: Text('Products Not found'));
+                        }
+                        return SGridLayout(
+                          itemCount: productController.featuredProducts.length,
+                          itemBuilder: (context, index){
+                            ProductModel product= productController.featuredProducts[index];
+                            return SProductCartVertical(product: product);
+                          },
+                        );
+                      }
                   )
-        
+
                 ],
               ), // CarouselSlider
             ), // Padding
@@ -83,5 +98,6 @@ class HomeScreen extends StatelessWidget {
     );
   }
 }
+
 
 

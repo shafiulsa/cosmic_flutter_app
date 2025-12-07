@@ -5,6 +5,8 @@ import 'package:e_commerce_app/Common/widgets/images/roundes_image.dart';
 import 'package:e_commerce_app/Common/widgets/text/brand_title_with_verify_icon.dart';
 import 'package:e_commerce_app/Common/widgets/text/product_price_text.dart';
 import 'package:e_commerce_app/Common/widgets/text/product_title_text.dart';
+import 'package:e_commerce_app/features/shop/controllers/product/product_controller.dart';
+import 'package:e_commerce_app/features/shop/models/product_model.dart';
 import 'package:e_commerce_app/features/shop/views/product_details/product_details.dart';
 import 'package:e_commerce_app/utils/constans/colors.dart';
 import 'package:e_commerce_app/utils/constans/images.dart';
@@ -15,11 +17,14 @@ import 'package:get/get.dart';
 import '../../../../utils/constans/sizes.dart';
 
 class SProductCartVertical extends StatelessWidget {
-  const SProductCartVertical({super.key});
+  const SProductCartVertical({super.key, required this.product});
+  final ProductModel product;
 
   @override
   Widget build(BuildContext context) {
     final dark = SHelperFunction.isDarkMode(context);
+    final controller =ProductController.instance;
+    String? saleParcentage =controller.calculateSalePercentage(product.price, product.salePrice);
     return GestureDetector(
       onTap: ()=> Get.to(()=>ProductDetailsScreen()),
       child: Container(
@@ -40,25 +45,29 @@ class SProductCartVertical extends StatelessWidget {
               child: Stack(
                 children: [
                   //Thumbnail
-                  Center(child: SRoundedImage(imageUrl: SImages.productImage15)),
+                  Center(child: SRoundedImage(imageUrl: product.thumbnail,isNetworkImage: true)),
                   //discount tag
-                  Positioned(
-                    top: 12.0,
-                    child: SRoundedContainer(
-                      radius: SSizes.sm,
-                      backgroundColor: SColors.yellow.withValues(alpha: 0.8),
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: SSizes.sm,
-                        vertical: SSizes.xs,
-                      ),
-                      child: Text(
-                        '20%',
-                        style: Theme.of(
-                          context,
-                        ).textTheme.labelLarge!.apply(color: SColors.black),
+                  if(saleParcentage !=null)
+                    Positioned(
+                      top: 12.0,
+                      child: SRoundedContainer(
+                        radius: SSizes.sm,
+                        backgroundColor: SColors.yellow.withValues(alpha: 0.8),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: SSizes.sm,
+                          vertical: SSizes.xs,
+                        ),
+
+                        child: Text(
+                          '$saleParcentage',
+                          style: Theme.of(
+                            context,
+                          ).textTheme.labelLarge!.apply(color: SColors.black),
+                        ),
                       ),
                     ),
-                  ),
+
+
 
                   /// Favoirit icon
                   Positioned(
@@ -81,14 +90,14 @@ class SProductCartVertical extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   /// Product Title
-                  const SProductTitleText(
-                    title: 'Blue Bata Shoes',
+                  SProductTitleText(
+                    title:product.title ,
                     smallSize: true,
                   ),
                   SizedBox(height: SSizes.spaceBtwItems / 2),
 
                   /// Product Brand
-                  SBrandTitleWithVerifyIcon(title: "Bata",), // Row
+                  SBrandTitleWithVerifyIcon(title: product.brand!.name,), // Row
                 ],
               ),
             ),
@@ -99,7 +108,7 @@ class SProductCartVertical extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 //Product price
-                SProductPriceText(price: '20'),
+                SProductPriceText(price: controller.getProductPrice(product)),
 
                 // Add button
                 Container(
