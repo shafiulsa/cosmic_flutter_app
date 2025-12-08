@@ -98,11 +98,15 @@ class ProductRepository extends GetxController{
   Future<void> uploadProducts(List<ProductModel> products) async {
     try {
       for (ProductModel product in products) {
+         final Map<String,String> uploadImageMap={};
+
         // thumbnail uploaded
         File thumbnailFile = await SHelperFunction.assetToFile(product.thumbnail);
         dio.Response response = await _cloudinaryServices.uploadImage(thumbnailFile, SKeys.productsFolder);
         if (response.statusCode == 200) {
-          product.thumbnail = response.data['url'];
+          String url=response.data['url'];;
+          uploadImageMap[product.thumbnail]=url;
+          product.thumbnail = url;
         }
 
 
@@ -118,26 +122,51 @@ class ProductRepository extends GetxController{
                 imageUrls.add(response.data['url']);
               }
             }
-            // verifiation image update
-            if (product.productVariations != null) {
+
+            // // verifiation image update
+            // if (product.productVariations != null) {
+            //   for (final variation in product.productVariations!) {
+            //     int index = product.images!.indexWhere((image) => image == variation.image);
+            //     if (index != -1) {
+            //       variation.image = imageUrls[index];
+            //     } else {
+            //       print('Warning:verification image has no product : ${variation.id}');
+            //     }
+            //   }
+            //   product.images!.clear();
+            //   product.images!.addAll(imageUrls);
+            // }
+            // upload product variation images
+            if(product.productVariations != null && product.productVariations!.isNotEmpty){
+
+              Map<String, String> uploadedImageMap = {};
+
+              for (int i = 0; i < product.images!.length; i++) {
+                uploadedImageMap[product.images![i]] = imageUrls[i];
+              }
+
               for (final variation in product.productVariations!) {
-                int index = product.images!.indexWhere((image) => image == variation.image);
-                if (index != -1) {
-                  variation.image = imageUrls[index];
-                } else {
-                  print('Warning:verification image has no product : ${variation.id}');
+                final match = uploadedImageMap.entries.firstWhere(
+                      (entry) => entry.key == variation.image,
+                  orElse: () => const MapEntry('', ''),
+                );
+
+                if (match.key.isNotEmpty) {
+                  variation.image = match.value;
                 }
               }
-              product.images!.clear();
-              product.images!.addAll(imageUrls);
             }
+
+               product.images!.clear();
+             product.images!.addAll(imageUrls);
           }
         }
 
         // upload porduct in firestore
         await _db.collection(SKeys.productsCollection).doc(product.id).set(product.toJson());
-        print('Product ${product.id} uploaded');
+        print('Product ${product.id} uploaded  দ্য');
       }
+
     } on FirebaseException catch(e){
       throw SFirebaseException(e.code).message;
     } on FormatException catch(_){

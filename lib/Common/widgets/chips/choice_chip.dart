@@ -9,11 +9,13 @@ class SChoiceChip extends StatelessWidget {
     required this.text,
     required this.selected,
     required this.onSelected,
+    this.selectedColor,
   });
 
   final String text;
   final bool selected;
   final Function(bool)? onSelected;
+  final Color? selectedColor;
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +27,8 @@ class SChoiceChip extends StatelessWidget {
       selected: selected,
       onSelected: onSelected,
       labelStyle: TextStyle(color: selected ? SColors.white : null),
-   shape: isColor? CircleBorder() : null,
+      selectedColor: selectedColor,
+      shape: isColor? CircleBorder() : null,
 
       labelPadding: isColor ? EdgeInsets.zero : null,
       padding: isColor?EdgeInsets.zero : null,

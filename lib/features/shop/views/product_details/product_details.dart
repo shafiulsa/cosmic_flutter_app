@@ -1,16 +1,19 @@
 import 'package:e_commerce_app/Common/style/padding.dart';
 import 'package:e_commerce_app/Common/widgets/button/elevated_button.dart';
 import 'package:e_commerce_app/Common/widgets/text/section_heading.dart';
+import 'package:e_commerce_app/features/shop/models/product_model.dart';
 import 'package:e_commerce_app/features/shop/views/product_details/wedgets/bottom_add_to_cart.dart';
 import 'package:e_commerce_app/features/shop/views/product_details/wedgets/product_attribute.dart';
 import 'package:e_commerce_app/features/shop/views/product_details/wedgets/product_meta_data.dart';
 import 'package:e_commerce_app/features/shop/views/product_details/wedgets/product_thumbnail_and_slider.dart';
+import 'package:e_commerce_app/utils/constans/enums.dart';
 import 'package:e_commerce_app/utils/constans/sizes.dart';
 import 'package:flutter/material.dart';
 import 'package:readmore/readmore.dart';
 
 class ProductDetailsScreen extends StatelessWidget {
-  const ProductDetailsScreen({super.key});
+  const ProductDetailsScreen({super.key, required this.product});
+  final ProductModel product;
 
   @override
   Widget build(BuildContext context) {
@@ -20,18 +23,21 @@ class ProductDetailsScreen extends StatelessWidget {
         child: Column(
           children: [
             // ---[Product Image With Slider]----
-            SProductThumnailAndSlider(), // Stack
+            SProductThumnailAndSlider(product: product), // Stack
             // ---------Prodcut Details
             Padding(
               padding: SPadding.screenPadding,
               child: Column(
                 children: [
                   //Price,Title,Stack and Brand
-                  SProductMetaData(),
+                  SProductMetaData(product: product,),
                   SizedBox(height: SSizes.spaceBtwSections),
                   //Attribute
-                  SProductAttributes(),
-                  SizedBox(height: SSizes.spaceBtwSections),
+                  if(product.productType == ProductType.variable.toString())...[
+                    SProductAttributes(product: product),
+                    SizedBox(height: SSizes.spaceBtwSections),
+                  ],
+
                   //Checkout Button
                   SElevatedButton(onPress: () {}, child: Text('Check Out')),
                   SizedBox(height: SSizes.spaceBtwSections),
@@ -43,8 +49,8 @@ class ProductDetailsScreen extends StatelessWidget {
                   SizedBox(height: SSizes.spaceBtwSections),
 
                   ReadMoreText(
-                    'This is a product of iPhone 11 with 512 GB, This is a product of iPhone 11 with 512 GB, This is a product This is a product of iPhone 11 with 512 GB, This is a product of iPhone 11 with 512 GB, This is a product This is a product of iPhone 11 with 512 GB, This is a product of iPhone 11 with 512 GB, This is a product  of iPhone 11 with 512 GB...',
-                    // Truncated text example
+                      product.description ?? '',
+                           // Truncated text example
                     trimLines: 2,
                     trimMode: TrimMode.Line,
                     trimCollapsedText: ' Show more',

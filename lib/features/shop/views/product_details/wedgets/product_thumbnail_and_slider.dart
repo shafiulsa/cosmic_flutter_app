@@ -1,4 +1,8 @@
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:e_commerce_app/features/shop/controllers/product/image_controller.dart';
+import 'package:e_commerce_app/features/shop/models/product_model.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 
 import '../../../../../Common/widgets/appbar/appbar.dart';
@@ -11,15 +15,18 @@ import '../../../../../utils/helpers/helper_functions.dart';
 
 class SProductThumnailAndSlider extends StatelessWidget {
   const SProductThumnailAndSlider({
-    super.key,
+    super.key, required this.product,
 
   });
 
+  final ProductModel product;
 
 
   @override
   Widget build(BuildContext context) {
     final dark = SHelperFunction.isDarkMode(context);
+    final controller =Get.put(ImageController());
+  List<String>  images = controller.getAllProductImages(product);
     return Container(
       color: dark ? SColors.darkGrey : SColors.light,
       child: Stack(
@@ -30,7 +37,19 @@ class SProductThumnailAndSlider extends StatelessWidget {
             child: Padding(
               padding: EdgeInsets.all(SSizes.productImageRadius * 2),
               child: Center(
-                child: Image(image: AssetImage(SImages.productImage3)),
+                child: Obx(
+                    (){
+
+                      final image=controller.selectedProductImage.value;
+                      return GestureDetector(
+                        onTap: ()=>controller.showEnlargeImage(image),
+                        child: CachedNetworkImage(
+                            imageUrl: image,
+                            progressIndicatorBuilder:(context,url,progress)=>CircularProgressIndicator(color: SColors.primary,value: progress.progress)
+                        ),
+                      );
+                    }
+                ),
               ),
             ), // Padding, SizedBox
           ),
@@ -47,14 +66,20 @@ class SProductThumnailAndSlider extends StatelessWidget {
                     SizedBox(width: SSizes.spaceBtwItems),
                 shrinkWrap: true,
                 scrollDirection: Axis.horizontal,
-                itemCount: 6,
-                itemBuilder: (context, index) => SRoundedImage(
-                  width: 80,
-
-                  backgroundColor: dark ? SColors.dark : SColors.white,
-                  padding: EdgeInsets.all(SSizes.sm),
-                  border: Border.all(color: SColors.primary),
-                  imageUrl: SImages.productImage3,
+                itemCount: images.length,
+                itemBuilder: (context, index) => Obx(
+                    (){
+   bool isImageSelected =controller.selectedProductImage.value ==images[index];
+                      return SRoundedImage(
+                        width: 80,
+                        isNetworkImage: true,
+                        onTap: ()=> controller.selectedProductImage.value =images[index],
+                        backgroundColor: dark ? SColors.dark : SColors.white,
+                        padding: EdgeInsets.all(SSizes.sm),
+                        border: Border.all(color: isImageSelected ?SColors.primary: Colors.transparent),
+                        imageUrl: images[index],
+                      );
+                    }
                 ),
               ), // SRoundedImage, ListView.builder
             ),

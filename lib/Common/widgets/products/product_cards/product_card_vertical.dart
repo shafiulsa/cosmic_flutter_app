@@ -26,7 +26,7 @@ class SProductCartVertical extends StatelessWidget {
     final controller =ProductController.instance;
     String? saleParcentage =controller.calculateSalePercentage(product.price, product.salePrice);
     return GestureDetector(
-      onTap: ()=> Get.to(()=>ProductDetailsScreen()),
+      onTap: ()=> Get.to(()=>ProductDetailsScreen(product: product)),
       child: Container(
         width: 180,
         padding: const EdgeInsets.all(1),
