@@ -225,7 +225,7 @@ class ProductRepository extends GetxController{
   }
 
 
-  // Fetch feature all  list of products
+  // Fetch feature all  list of brand spascefic product
   Future<List<ProductModel>> fetchProductsByQuery(Query query) async {
     try {
       final querySnapshot = await query.get();
@@ -247,5 +247,28 @@ class ProductRepository extends GetxController{
     }
   }
 
+  // Fetch feature all  list of products
+  Future<List<ProductModel>> getProductForBrad({required String brandId,int limit =-1}) async {
+    try {
+      final query =limit ==-1 ? await _db.collection(SKeys.productsCollection).where('brand.id',isEqualTo: brandId).get()
+      : await _db.collection(SKeys.productsCollection).where('brand.id',isEqualTo: brandId).limit(limit).get();
+
+
+      if(query.docs.isNotEmpty){
+        List<ProductModel> products = query.docs.map((document) => ProductModel.fromSnapshot(document)).toList();
+        return products;
+      }
+
+      return [];
+    } on FirebaseException catch(e){
+      throw SFirebaseException(e.code).message;
+    } on FormatException catch(_){
+      throw SFormatException();
+    } on PlatformException catch(e){
+      throw SPlatformException(e.code).message;
+    } catch(e){
+      throw 'Something went wrong. Please try again';
+    }
+  }
 
 }

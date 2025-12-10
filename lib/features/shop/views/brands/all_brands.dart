@@ -12,54 +12,6 @@ import 'package:get/get.dart';
 import '../../../../Common/style/padding.dart';
 import '../../../../utils/constans/sizes.dart';
 
-// class BrandScreen extends StatelessWidget {
-//   const BrandScreen({super.key});
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     final controller = BrandController.instance;
-//     return Scaffold(
-//         appBar: SAppBarr(
-//           showBackArrow: true,
-//           title: Text('Brand', style: Theme
-//               .of(context)
-//               .textTheme
-//               .headlineSmall),
-//         ),
-//         body: SingleChildScrollView(
-//             child: Padding(
-//                 padding: SPadding.screenPadding,
-//                 child: Column(
-//                     children: [
-//                       //  [Text] - Brands
-//                       SSectionHeading(title: 'Brands', showActionButton: false),
-//                       SizedBox(height: SSizes.spaceBtwItems),
-//                       // List Of Brands
-//                       Obx(
-//                               () {
-//                             return SGridLayout(
-//                               itemCount: controller.featuredBrands.length,
-//                               itemBuilder: (context, index) {
-//                                 return SBrandCart(
-//                                     onTap: () =>
-//                                         Get.to(() => BrandProductScreen()),
-//                                     brand: BrandModel.empty());
-//                               },
-//                               mainAxisExtent: 80,
-//                             );
-//                           }
-//                       )
-//                     ]
-//
-//
-//
-//   ),
-//
-//   ), // Column
-//   ), // Padding
-//   ), // SingleChildScrollView
-//   ); // Scaffold
-// }}
 class BrandScreen extends StatelessWidget {
   const BrandScreen({super.key});
 
@@ -98,7 +50,10 @@ class BrandScreen extends StatelessWidget {
                   itemBuilder: (context, index) {
                     BrandModel brand = controller.allBrands[index];
                     return SBrandCart(
-                      onTap: () => Get.to(() => BrandProductScreen()),
+                      onTap: () => Get.to(
+                        () =>
+                            BrandProductScreen(title: brand.name, brand: brand),
+                      ),
                       brand: brand,
                     );
                   },
