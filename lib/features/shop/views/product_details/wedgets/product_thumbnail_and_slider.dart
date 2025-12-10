@@ -9,7 +9,6 @@ import '../../../../../Common/widgets/appbar/appbar.dart';
 import '../../../../../Common/widgets/icons/circuler_icon.dart';
 import '../../../../../Common/widgets/images/roundes_image.dart';
 import '../../../../../utils/constans/colors.dart';
-import '../../../../../utils/constans/images.dart';
 import '../../../../../utils/constans/sizes.dart';
 import '../../../../../utils/helpers/helper_functions.dart';
 

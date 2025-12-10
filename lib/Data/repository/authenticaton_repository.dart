@@ -1,8 +1,5 @@
 
-import 'package:e_commerce_app/Data/repository/brand/brand_repository.dart';
-import 'package:e_commerce_app/Data/repository/product/product_repository.dart';
 import 'package:e_commerce_app/Data/repository/user/user_repository.dart';
-import 'package:e_commerce_app/dummy_data.dart';
 import 'package:e_commerce_app/features/authentication/controllers/onboading/onboading_controller.dart';
 import 'package:e_commerce_app/features/authentication/views/login/login.dart';
 import 'package:e_commerce_app/features/authentication/views/onboading/onboading.dart';

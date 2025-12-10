@@ -1,6 +1,6 @@
 import 'package:e_commerce_app/Common/widgets/brand/brand_cart.dart';
+import 'package:e_commerce_app/Common/widgets/products/sortable_products.dart';
 import 'package:e_commerce_app/features/shop/models/brand_model.dart';
-import 'package:e_commerce_app/features/shop/views/all_products/all_products.dart';
 import 'package:e_commerce_app/utils/constans/sizes.dart';
 import 'package:flutter/material.dart';
 
@@ -21,7 +21,7 @@ class BrandProductScreen extends StatelessWidget {
             children: [
               SBrandCart(brand: BrandModel.empty(),),
               SizedBox(height: SSizes.spaceBtwSections),
-              SSortAbleProducts(),
+              SSortAbleProducts(products: []),
             ],
           ), // Column
         ), // Padding

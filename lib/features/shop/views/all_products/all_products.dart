@@ -1,64 +1,52 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_commerce_app/Common/style/padding.dart';
 import 'package:e_commerce_app/Common/widgets/appbar/appbar.dart';
-import 'package:e_commerce_app/Common/widgets/layouts/grid_layout.dart';
-import 'package:e_commerce_app/Common/widgets/products/product_cards/product_card_vertical.dart';
+import 'package:e_commerce_app/Common/widgets/products/sortable_products.dart';
+import 'package:e_commerce_app/Common/widgets/shimmer/vertical_product_shimmer.dart';
+import 'package:e_commerce_app/features/shop/controllers/product/all_products_controller.dart';
 import 'package:e_commerce_app/features/shop/models/product_model.dart';
-import 'package:e_commerce_app/utils/constans/sizes.dart';
+import 'package:e_commerce_app/utils/helpers/cloud_helper_functions.dart';
 import 'package:flutter/material.dart';
-import 'package:iconsax/iconsax.dart';
+import 'package:get/get.dart';
 
 class AllProductsScreen extends StatelessWidget {
-  const AllProductsScreen({super.key});
+  const AllProductsScreen({
+    super.key,
+    this.futureMethod,
+    this.query,
+    required this.title,
+  });
+
+  final String title;
+  final Future<List<ProductModel>>? futureMethod;
+  final Query? query;
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.put(AllProductsController());
     return Scaffold(
       appBar: SAppBarr(
         showBackArrow: true,
-        title: Text(
-          'Popular Products',
-          style: Theme.of(context).textTheme.headlineMedium,
-        ),
+        title: Text(title, style: Theme.of(context).textTheme.headlineMedium),
         // Assuming style: Theme.of(context).textTheme.headLineMedium
       ), // SAppBar
       body: SingleChildScrollView(
         child: Padding(
           padding: SPadding.screenPadding,
-          child: SSortAbleProducts(), // Column
+          child: FutureBuilder(
+            future: futureMethod ?? controller.fetchProductsByQuery(query),
+            builder: (context, snapshot) {
+
+              const loader = SVerticalProductShimmer();
+              final widget = SCloudHelperFunctions.checkMultiRecordState(snapshot: snapshot,loader: loader);
+              if (widget != null) return widget;
+
+              List<ProductModel> products = snapshot.data!;
+              return SSortAbleProducts(products: products);
+            },
+          ), // Column
         ), // Padding
       ), // SingleChildScrollView
     ); // Scaffold
-  }
-}
-
-class SSortAbleProducts extends StatelessWidget {
-  const SSortAbleProducts({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        
-        //Filter Field
-        DropdownButtonFormField(
-          decoration: InputDecoration(prefixIcon: Icon(Iconsax.sort)),
-          onChanged: (value) {},
-          items: ['Name', 'Lower Price', 'Higher Price', 'Sale', 'Newest']
-              .map((filter) {
-                return DropdownMenuItem(
-                  value: filter,
-                  child: Text(filter),
-                );
-              })
-              .toList(),
-        ), // DropdownButtonFormField
-      SizedBox(height: SSizes.spaceBtwSections),
-    
-        // Products
-        SGridLayout(itemCount: 10, itemBuilder: (context, index) => SProductCartVertical(product: ProductModel.empty(),),)
-      ],
-    );
   }
 }

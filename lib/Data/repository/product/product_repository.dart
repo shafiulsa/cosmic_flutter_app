@@ -90,7 +90,7 @@ import 'package:get/get.dart';
 import 'package:dio/dio.dart'as dio;
 
 class ProductRepository extends GetxController{
-  static ProductRepository get to => Get.find();
+  static ProductRepository get instance => Get.find();
   final _db=FirebaseFirestore.instance;
   final _cloudinaryServices =Get.put(CloundinaryServices());
 
@@ -179,7 +179,7 @@ class ProductRepository extends GetxController{
   }
 
 
-  // Fetch image
+  // Fetch feature 4  products
   Future<List<ProductModel>> fetchFeatureProducts() async {
     try {
       final query = await _db.collection(SKeys.productsCollection).where('isFeatured', isEqualTo: true).limit(4).get();
@@ -200,5 +200,52 @@ class ProductRepository extends GetxController{
       throw 'Something went wrong. Please try again';
     }
   }
+
+
+  // Fetch feature all  list of products
+  Future<List<ProductModel>> fetchAllFeatureProducts() async {
+    try {
+      final query = await _db.collection(SKeys.productsCollection).where('isFeatured', isEqualTo: true).get();
+
+      if(query.docs.isNotEmpty){
+        List<ProductModel> products = query.docs.map((document) => ProductModel.fromSnapshot(document)).toList();
+        return products;
+      }
+
+      return [];
+    } on FirebaseException catch(e){
+      throw SFirebaseException(e.code).message;
+    } on FormatException catch(_){
+      throw SFormatException();
+    } on PlatformException catch(e){
+      throw SPlatformException(e.code).message;
+    } catch(e){
+      throw 'Something went wrong. Please try again';
+    }
+  }
+
+
+  // Fetch feature all  list of products
+  Future<List<ProductModel>> fetchProductsByQuery(Query query) async {
+    try {
+      final querySnapshot = await query.get();
+
+      if(querySnapshot.docs.isNotEmpty){
+        List<ProductModel> products = querySnapshot.docs.map((document) => ProductModel.fromQuerySnapshot(document)).toList();
+        return products;
+      }
+
+      return [];
+    } on FirebaseException catch(e){
+      throw SFirebaseException(e.code).message;
+    } on FormatException catch(_){
+      throw SFormatException();
+    } on PlatformException catch(e){
+      throw SPlatformException(e.code).message;
+    } catch(e){
+      throw 'Something went wrong. Please try again';
+    }
+  }
+
 
 }

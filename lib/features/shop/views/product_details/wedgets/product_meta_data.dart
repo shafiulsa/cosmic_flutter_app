@@ -8,7 +8,6 @@ import 'package:e_commerce_app/features/shop/controllers/product/product_control
 import 'package:e_commerce_app/features/shop/models/product_model.dart';
 import 'package:e_commerce_app/utils/constans/colors.dart';
 import 'package:e_commerce_app/utils/constans/enums.dart';
-import 'package:e_commerce_app/utils/constans/images.dart';
 import 'package:e_commerce_app/utils/constans/sizes.dart';
 import 'package:e_commerce_app/utils/constans/text.dart';
 import 'package:flutter/material.dart';

@@ -9,7 +9,6 @@ import 'package:e_commerce_app/features/shop/controllers/product/product_control
 import 'package:e_commerce_app/features/shop/models/product_model.dart';
 import 'package:e_commerce_app/features/shop/views/product_details/product_details.dart';
 import 'package:e_commerce_app/utils/constans/colors.dart';
-import 'package:e_commerce_app/utils/constans/images.dart';
 import 'package:e_commerce_app/utils/helpers/helper_functions.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
