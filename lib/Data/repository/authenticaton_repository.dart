@@ -53,12 +53,13 @@ class AuthenticatonRepository extends GetxController {
 
   }
 
-  void screenRedirect() {
+  Future<void> screenRedirect() async{
     final user = _auth.currentUser;
     if (user != null) {
       if (user.emailVerified) {
         //if verified then go to navigation screen
         Get.offAll(() => NavigationMenu());
+     await   GetStorage.init(user.uid);
       } else {
         //if not verified then go to verify email screen
         Get.offAll(() => VerifyEmailScreen(email: user.email));

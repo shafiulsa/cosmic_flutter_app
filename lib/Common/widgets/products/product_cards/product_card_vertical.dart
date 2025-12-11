@@ -1,7 +1,7 @@
 import 'package:e_commerce_app/Common/style/shadow.dart';
 import 'package:e_commerce_app/Common/widgets/custome_shape/rounded_container.dart';
-import 'package:e_commerce_app/Common/widgets/icons/circuler_icon.dart';
 import 'package:e_commerce_app/Common/widgets/images/roundes_image.dart';
+import 'package:e_commerce_app/Common/widgets/products/favourite/favourite_icon.dart';
 import 'package:e_commerce_app/Common/widgets/text/brand_title_with_verify_icon.dart';
 import 'package:e_commerce_app/Common/widgets/text/product_price_text.dart';
 import 'package:e_commerce_app/Common/widgets/text/product_title_text.dart';
@@ -72,10 +72,7 @@ class SProductCartVertical extends StatelessWidget {
                   Positioned(
                     right: 0,
                     top: 0,
-                    child: SCircularIcon(
-                      icon: Icons.heart_broken,
-                      color: Colors.red,
-                    ),
+                    child:   SFavouriteIcon(productId: product.id),
                   ),
 
                 ],

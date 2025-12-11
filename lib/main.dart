@@ -17,6 +17,7 @@ Future<void> main() async {
   print("Initializing GetStorage...");
   // Get storage initialize
  await GetStorage.init();
+
   print("GetStorage initialized!");
   //firebase inititalization
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform).then((value) {
