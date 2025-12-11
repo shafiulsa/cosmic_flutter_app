@@ -2,7 +2,9 @@ import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_commerce_app/Data/services/cloudinary_services.dart';
+import 'package:e_commerce_app/features/shop/models/brand_category_model.dart';
 import 'package:e_commerce_app/features/shop/models/category_model.dart';
+import 'package:e_commerce_app/features/shop/models/product_category_model.dart';
 import 'package:e_commerce_app/utils/constans/keys.dart';
 import 'package:e_commerce_app/utils/exceptions/firebase_exceptions.dart';
 import 'package:e_commerce_app/utils/exceptions/platform_exceptions.dart';
@@ -19,6 +21,50 @@ class CategoryRepository extends GetxController {
   // Variables
   final _db = FirebaseFirestore.instance;
   final _cloudinaryServices = Get.put(CloundinaryServices());
+
+  /// [Upload] - Function to upload list of brand categories
+  Future<void> uploadBrandCategory(List<BrandCategoryModel> brandCategories) async {
+    try {
+      for (final brandCategory in brandCategories) {
+        await _db
+            .collection(SKeys.brandCatagoryCollection)
+            .doc()
+            .set(brandCategory.toJson());
+
+        print('Upload brand  catagory${brandCategory.brandId}');
+      }
+    } on FirebaseException catch (e) {
+      throw SFirebaseException(e.code).message;
+    } on FormatException catch (_) {
+      throw SFormatException();
+    } on PlatformException catch (e) {
+      throw SPlatformException(e.code).message;
+    } catch (_) {
+      throw 'Something went wrong. Please try again';
+    }
+  }
+
+
+
+  /// [Upload] - Function to upload list of brand categories
+  Future<void> uploadProductCategory(List<ProductCategoryModel> productCategories) async {
+    try {
+      for(final productCategorie in productCategories) {
+        await _db.collection(SKeys.productCatagoryCollection).doc().set(productCategorie.toJson());
+       print('Upload Product catagory ${productCategorie.productId}');
+      }
+    } on FirebaseException catch (e) {
+      throw SFirebaseException(e.code).message;
+    } on FormatException catch (_) {
+      throw SFormatException();
+    } on PlatformException catch (e) {
+      throw SPlatformException(e.code).message;
+    } catch (e) {
+      throw 'Something went wrong. Please try again';
+    }
+  }
+
+
 
   /// [UploadCategory] - Function to upload list of categories
   Future<void> uploadCategories(List<CategoryModel> categories) async {

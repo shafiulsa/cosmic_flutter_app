@@ -36,7 +36,7 @@ class BrandModel{
     if(data.isEmpty) return BrandModel.empty();
     return BrandModel(
         id: data['id'],
-        image: data['image'],
+        image: data['image']?? '',
         name: data['name'],
         isFeatured: data['isFeatured'],
         productsCount: data['productCount']
@@ -48,7 +48,7 @@ class BrandModel{
       Map<String, dynamic> data = document.data()!;
       return BrandModel(
           id: data['id'],
-          image: data['image'],
+          image: data['image']??'',
           name: data['name'],
           isFeatured: data['isFeatured'],
           productsCount: data['productCount']

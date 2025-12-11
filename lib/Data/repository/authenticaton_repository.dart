@@ -47,7 +47,9 @@ class AuthenticatonRepository extends GetxController {
     // // ata ak bar  e chalabo  Product data  firebase firestore a fetch ar jonna
     //
     // Get.put(ProductRepository()).uploadProducts(SDummyData.products);
-
+    // Get.put(CategoryRepository()).uploadBrandCategory(SDummyData.brandCategory);
+    // Get.put(CategoryRepository()).uploadProductCategory(SDummyData.productCategory);
+    //
 
   }
 

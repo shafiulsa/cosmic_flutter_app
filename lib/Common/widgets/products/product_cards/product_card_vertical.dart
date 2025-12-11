@@ -96,7 +96,9 @@ class SProductCartVertical extends StatelessWidget {
                   SizedBox(height: SSizes.spaceBtwItems / 2),
 
                   /// Product Brand
-                  SBrandTitleWithVerifyIcon(title: product.brand!.name,), // Row
+                  // SBrandTitleWithVerifyIcon(title: product.brand!.name,), // Row
+                  SBrandTitleWithVerifyIcon(title: product.brand?.name ?? "Unknown Brand"),
+
                 ],
               ),
             ),

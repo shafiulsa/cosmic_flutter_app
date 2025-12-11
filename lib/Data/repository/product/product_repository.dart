@@ -248,7 +248,7 @@ class ProductRepository extends GetxController{
   }
 
   // Fetch feature all  list of products
-  Future<List<ProductModel>> getProductForBrad({required String brandId,int limit =-1}) async {
+  Future<List<ProductModel>> getProductForBrand({required String brandId,int limit =-1}) async {
     try {
       final query =limit ==-1 ? await _db.collection(SKeys.productsCollection).where('brand.id',isEqualTo: brandId).get()
       : await _db.collection(SKeys.productsCollection).where('brand.id',isEqualTo: brandId).limit(limit).get();
@@ -260,6 +260,30 @@ class ProductRepository extends GetxController{
       }
 
       return [];
+    } on FirebaseException catch(e){
+      throw SFirebaseException(e.code).message;
+    } on FormatException catch(_){
+      throw SFormatException();
+    } on PlatformException catch(e){
+      throw SPlatformException(e.code).message;
+    } catch(e){
+      throw 'Something went wrong. Please try again';
+    }
+  }
+  // Fetch feature all  list of products
+  Future<List<ProductModel>> getProductForCategory({required String categoryId,int limit =4}) async {
+    try {
+      final productCategoryQuery = limit == -1
+          ? await _db.collection(SKeys.productCatagoryCollection).where('categoryId', isEqualTo: categoryId).get()
+          : await _db.collection(SKeys.productCatagoryCollection).where('categoryId', isEqualTo: categoryId).limit(limit).get();
+
+      List<String> productIds = productCategoryQuery.docs.map((doc) => doc['productId'] as String).toList();
+
+      final productQuery = await _db.collection(SKeys.productsCollection).where(FieldPath.documentId, whereIn: productIds).get();
+
+      List<ProductModel> products = productQuery.docs.map((doc) => ProductModel.fromSnapshot(doc)).toList();
+
+      return products;
     } on FirebaseException catch(e){
       throw SFirebaseException(e.code).message;
     } on FormatException catch(_){

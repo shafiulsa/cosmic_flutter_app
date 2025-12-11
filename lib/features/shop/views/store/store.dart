@@ -6,6 +6,7 @@ import 'package:e_commerce_app/features/shop/controllers/brand/brand_controller.
 import 'package:e_commerce_app/features/shop/controllers/category/catrgory_controller.dart';
 import 'package:e_commerce_app/features/shop/models/brand_model.dart';
 import 'package:e_commerce_app/features/shop/views/brands/all_brands.dart';
+import 'package:e_commerce_app/features/shop/views/brands/brand_products.dart';
 import 'package:e_commerce_app/features/shop/views/store/widets/category_tab.dart';
 import 'package:e_commerce_app/features/shop/views/store/widets/sotre_primary_header.dart';
 import 'package:e_commerce_app/utils/constans/sizes.dart';
@@ -72,7 +73,10 @@ class StoreScreen extends StatelessWidget {
                                         brandController.featuredBrands[index];
                                     return SizedBox(
                                       width: SSizes.brandCardWidth,
-                                      child: SBrandCart(brand: brand),
+                                      child: SBrandCart(brand: brand,onTap: () => Get.to(
+                                        () =>
+                                        BrandProductScreen(title: brand.name, brand: brand),
+                                    )),
                                     );
                                   },
                                 );
@@ -95,7 +99,7 @@ class StoreScreen extends StatelessWidget {
           },
           body: TabBarView(
             children: controller.featuredCategories
-                .map((category) => SCatagoryTab())
+                .map((category) => SCatagoryTab(category: category))
                 .toList(),
           ), // TabBarView
         ), // NestedScrollView
