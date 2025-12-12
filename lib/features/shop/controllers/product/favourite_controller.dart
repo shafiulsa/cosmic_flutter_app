@@ -20,9 +20,10 @@ class FavouriteController extends GetxController {
     initFavourites();
     super.onInit();
   }
-
+// Load Favourite from local storage
   Future<void> initFavourites() async{
-    String encodedFavourites = await _storage.read('favourites');
+    String? encodedFavourites = await _storage.read('favourites');
+    if(encodedFavourites ==null) return;
     Map<String, dynamic> storedFavourites = jsonDecode(encodedFavourites) as Map<String, dynamic>;
     favourites.assignAll(storedFavourites.map((key, value) => MapEntry(key, value as bool)));
   }

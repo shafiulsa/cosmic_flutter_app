@@ -55,4 +55,22 @@ class CategoryController extends GetxController {
       return [];
     }
   }
+
+
+  /// Get Sub Category of selected category
+  Future<List<CategoryModel>> getSubCategory({required String categoryId, int limit = 4}) async {
+    try{
+
+      final subCategorys =await _repository.getSubCategories(categoryId);
+      return subCategorys;
+
+    } catch(e) {
+      SSnackBarHelpers.errorSnackBar(title: 'Failed!', message: e.toString());
+      return [];
+    }
+  }
+
+
+
 }
+

@@ -120,4 +120,29 @@ class CategoryRepository extends GetxController {
     }
   }
 
+
+  /// [FetchSubCategories] - Function to fetch list ofsub categories
+  Future<List<CategoryModel>> getSubCategories(String categoryId) async{
+    try{
+
+      final query = await _db.collection(SKeys.categoryCollection).where('parentId',isEqualTo: categoryId).get();
+
+      if(query.docs.isNotEmpty){
+        List<CategoryModel> categories = query.docs.map((document) => CategoryModel.fromSnapshot(document)).toList();
+        return categories;
+      }
+
+      return [];
+
+    }on FirebaseException catch(e){
+      throw SFirebaseException(e.code).message;
+    } on FormatException catch(_){
+      throw SFormatException();
+    } on PlatformException catch(e){
+      throw SPlatformException(e.code).message;
+    } catch(e){
+      throw 'Something went wrong. Please try again';
+    }
+  }
+
 }

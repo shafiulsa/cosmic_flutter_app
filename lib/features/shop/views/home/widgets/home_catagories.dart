@@ -55,12 +55,12 @@ class SHomeCatagories extends StatelessWidget {
                 scrollDirection: Axis.horizontal,
                 itemCount: categories.length,
                 itemBuilder: (context, index) {
-                  CategoryModel catagory = categories[index];
+                  CategoryModel category = categories[index];
                   return SVerticalImageText(
-                    title: catagory.name,
-                    image: catagory.image,
+                    title: category.name,
+                    image: category.image,
                     textColor: SColors.white,
-                    onTap: () => Get.to(() => SubCategoryScreen()),
+                    onTap: () => Get.to(() => SubCategoryScreen(category:category)),
                   ); // Column
                 },
               ), // ListView.builder
