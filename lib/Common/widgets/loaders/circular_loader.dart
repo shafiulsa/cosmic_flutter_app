@@ -7,8 +7,8 @@ import '../../../utils/constans/sizes.dart';
 
 
 
-class UCircularLoader extends StatelessWidget {
-  const UCircularLoader({super.key});
+class SCircularLoader extends StatelessWidget {
+  const SCircularLoader({super.key});
 
   @override
   Widget build(BuildContext context) {

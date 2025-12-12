@@ -12,7 +12,7 @@ class ChangeNameController extends GetxController {
 
   // // / Variables
   final _userController = UserController.instance;
-  final _userRepository= UserRepository.instance;
+  final _userRepository = UserRepository.instance;
 
   final firstName = TextEditingController();
   final lastName = TextEditingController();
@@ -52,29 +52,35 @@ class ChangeNameController extends GetxController {
       }
 
       // // Update User Name From FireStore
-// // Update User Name From Fire store
-      Map<String, dynamic> map = {'firstName': firstName.text, 'lastName': lastName.text};
+      // // Update User Name From Fire store
+      Map<String, dynamic> map = {
+        'firstName': firstName.text,
+        'lastName': lastName.text,
+      };
       await _userRepository.updateSingleField(map);
 
-// // Update user from RX User
+      // // Update user from RX User
       _userController.user.value.firstName = firstName.text;
       _userController.user.value.lastName = lastName.text;
 
-// // Stop Loading
-      SFullScreenLoader.stopLoading();
-
-// // Redirect
-      Get.offAll(() => NavigationMenu());
-
-// // Success Message
-      SSnackBarHelpers.successSnackBar(title: 'Congratulations', message: 'Your name has been updated.');
-
-    } catch(e) {
-
       // // Stop Loading
       SFullScreenLoader.stopLoading();
-      SSnackBarHelpers.errorSnackBar(title: 'Update Name Failed!', message: e.toString());
 
+      // // Redirect
+      Get.offAll(() => NavigationMenu());
+
+      // // Success Message
+      SSnackBarHelpers.successSnackBar(
+        title: 'Congratulations',
+        message: 'Your name has been updated.',
+      );
+    } catch (e) {
+      // // Stop Loading
+      SFullScreenLoader.stopLoading();
+      SSnackBarHelpers.errorSnackBar(
+        title: 'Update Name Failed!',
+        message: e.toString(),
+      );
     }
   }
 }

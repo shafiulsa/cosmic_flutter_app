@@ -1,6 +1,6 @@
-
 import 'package:e_commerce_app/Common/widgets/shimmer/shimmer_effect.dart';
 import 'package:e_commerce_app/utils/constans/sizes.dart';
+
 import 'package:flutter/material.dart';
 
 class SHorizontalProductShimmer extends StatelessWidget {

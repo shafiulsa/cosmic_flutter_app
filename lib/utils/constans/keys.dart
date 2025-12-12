@@ -8,6 +8,7 @@ class SKeys{
   static const String productsCollection = 'Products';
   static const String brandCatagoryCollection = 'BrandCategory';
   static const String productCatagoryCollection = 'ProductCategory';
+  static const String addressCollection = 'Address';
 
 
 
