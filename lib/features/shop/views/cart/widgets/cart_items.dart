@@ -1,4 +1,6 @@
+import 'package:e_commerce_app/features/shop/controllers/cart/cart_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../../../../../Common/widgets/products/cart/cart_item.dart';
 import '../../../../../Common/widgets/products/cart/product_qunatity_with_add_remove.dart';
@@ -12,35 +14,44 @@ class SCartItems extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final controller = CartController.instance;
     return ListView.separated(
       shrinkWrap: true,
+      physics: NeverScrollableScrollPhysics(),
       separatorBuilder: (context, index) =>
           SizedBox(height: SSizes.spaceBtwSections),
-      itemCount: 3,
+      itemCount: controller.cartItems.length,
       itemBuilder: (BuildContext context, int index) {
-        return Column(
-          children: [
-            //Cart Icon
-            SCartItem(),
-            if (showAddRemoveButton) SizedBox(height: SSizes.spaceBtwItems),
+        return Obx(() {
+          final cartItem = controller.cartItems[index];
+          return Column(
+            children: [
+              //Cart Icon
+              SCartItem(cartItem: cartItem),
+              if (showAddRemoveButton) SizedBox(height: SSizes.spaceBtwItems),
 
-            /// Price, Counter Buttons
-            if (showAddRemoveButton)
-              Row(
-                children: [
-                  // extra space
-                  SizedBox(width: 70.0),
+              /// Price, Counter Buttons
+              if (showAddRemoveButton)
+                Row(
+                  children: [
+                    // extra space
+                    SizedBox(width: 70.0),
 
-                  /// Quantity Buttons
-                  SProductQuantityWithAddAndRrmove(),
+                    /// Quantity Buttons
+                    SProductQuantityWithAddAndRrmove(
+                      quantity: cartItem.quantity,
+                      add: ()=> controller.addOneToCart(cartItem),
+                      remove: ()=>controller.removeOneFromCart(cartItem),
+                    ),
 
-                  Spacer(),
-                  // Product price
-                  SProductPriceText(price: '232'),
-                ],
-              ), // Row
-          ],
-        ); // Row
+                    Spacer(),
+                    // Product price
+                    SProductPriceText(price: (cartItem.price*cartItem.quantity).toStringAsFixed(0)),
+                  ],
+                ), // Row
+            ],
+          );
+        }); // Row
       },
     );
   }

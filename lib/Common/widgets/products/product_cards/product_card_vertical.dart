@@ -1,4 +1,5 @@
 import 'package:e_commerce_app/Common/style/shadow.dart';
+import 'package:e_commerce_app/Common/widgets/button/add_to_cart_button.dart';
 import 'package:e_commerce_app/Common/widgets/custome_shape/rounded_container.dart';
 import 'package:e_commerce_app/Common/widgets/images/roundes_image.dart';
 import 'package:e_commerce_app/Common/widgets/products/favourite/favourite_icon.dart';
@@ -109,18 +110,8 @@ class SProductCartVertical extends StatelessWidget {
                 SProductPriceText(price: controller.getProductPrice(product)),
 
                 // Add button
-                Container(
-                  width: SSizes.iconLg * 1.2,
-                  height: SSizes.iconLg * 1.2,
-                  decoration: BoxDecoration(
-                    color: SColors.primary,
-                    borderRadius: const BorderRadius.only(
-                      topLeft: Radius.circular(SSizes.cardRadiusMd),
-                      bottomRight: Radius.circular(SSizes.productImageRadius),
-                    ), // BorderRadius.only
-                  ), // BoxDecoration
-                  child: const Icon(Icons.add, color: SColors.white),
-                ), // Container
+                ProductAddToCartButton(product: product)
+          // Container
               ],
             ), // Row
           ],

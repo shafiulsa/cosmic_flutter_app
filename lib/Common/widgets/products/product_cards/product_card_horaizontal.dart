@@ -1,3 +1,4 @@
+import 'package:e_commerce_app/Common/widgets/button/add_to_cart_button.dart';
 import 'package:e_commerce_app/Common/widgets/products/favourite/favourite_icon.dart';
 import 'package:e_commerce_app/Common/widgets/text/brand_title_with_verify_icon.dart';
 import 'package:e_commerce_app/Common/widgets/text/product_price_text.dart';
@@ -121,18 +122,7 @@ class SProductCartHorizontal extends StatelessWidget {
                         Flexible(child: SProductPriceText(price: controller.getProductPrice(product))),
 
                         //Add button
-                        Container(
-                          width: SSizes.iconLg * 1.2,
-                          height: SSizes.iconLg * 1.2,
-                          decoration: BoxDecoration(
-                              color: SColors.primary,
-                              borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(SSizes.cardRadiusMd),
-                                bottomRight: Radius.circular(SSizes.productImageRadius),
-                              ) // BorderRadius.only
-                          ), // BoxDecoration
-                          child: Icon(Iconsax.add, color: SColors.white),
-                        ) // Container
+                       ProductAddToCartButton(product: product)
                       ],
                     ) // Row
 

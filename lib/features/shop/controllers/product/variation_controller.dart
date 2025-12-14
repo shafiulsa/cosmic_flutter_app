@@ -1,3 +1,4 @@
+import 'package:e_commerce_app/features/shop/controllers/cart/cart_controller.dart';
 import 'package:e_commerce_app/features/shop/controllers/product/image_controller.dart';
 import 'package:e_commerce_app/features/shop/models/product_model.dart';
 import 'package:e_commerce_app/features/shop/models/product_variation_model.dart';
@@ -39,6 +40,10 @@ class VariationController extends GetxController {
       ImageController.instance.selectedProductImage.value =
           selectedVariation.image;
     }
+    if(selectedVariation.id.isNotEmpty){
+      final cartController =CartController.instance;
+      cartController.productQuantityInCart.value=cartController.getVariationQunatityInCart(product.id, selectedVariation.id);
+    }
 
     // Assign selected Variation to Rx Variable
     this.selectedVariation(selectedVariation);
@@ -79,9 +84,20 @@ class VariationController extends GetxController {
     return true;
   }
 
-    String getVeriationPrice(){
-    return (selectedVariation.value.salePrice > 0 ? selectedVariation.value.salePrice: selectedVariation.value.price).toStringAsFixed(0);
-    }
+  String getVeriationPrice() {
+    return (selectedVariation.value.salePrice > 0
+            ? selectedVariation.value.salePrice
+            : selectedVariation.value.price)
+        .toStringAsFixed(0);
+  }
+  /// Reset Selected Attributes when switching products
+  void resetSelectedAttributes() {
+    selectedAttributes.clear();
+    variationStockStatus.value = '';
+    selectedVariation.value = ProductVariationModel.empty();
+  }
+
+
   /// Check product variation stock status
   void getProductVariationStockStatus() {
     variationStockStatus.value = selectedVariation.value.stock > 0

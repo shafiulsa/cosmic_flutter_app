@@ -7,11 +7,12 @@ import 'package:iconsax/iconsax.dart';
 
 class SProductQuantityWithAddAndRrmove extends StatelessWidget {
   const SProductQuantityWithAddAndRrmove({
-    super.key,
+    super.key, required this.quantity, this.add, this.remove,
 
   });
 
-
+  final int quantity;
+  final VoidCallback? add,remove;
 
   @override
   Widget build(BuildContext context) {
@@ -19,6 +20,8 @@ class SProductQuantityWithAddAndRrmove extends StatelessWidget {
 
     return Row(
       children: [
+
+        // decrement button
         SCircularIcon(
           icon: Iconsax.minus,
           width: 32,
@@ -28,17 +31,18 @@ class SProductQuantityWithAddAndRrmove extends StatelessWidget {
           backgroundColor: dark
               ? SColors.darkerGrey
               : SColors.light,
+          onPressed: remove,
         ),
 
         // SCircularIcon
         SizedBox(width: SSizes.spaceBtwItems),
-
-        Text('2', style: Theme.of(context).textTheme.titleSmall),
+// Central Text
+        Text(quantity.toString(), style: Theme.of(context).textTheme.titleSmall),
 
         // Text
         SizedBox(width: SSizes.spaceBtwItems),
 
-        // Added for spacing to the next button
+        // Increment button
         SCircularIcon(
           icon: Iconsax.add,
           width: 32,
@@ -46,6 +50,7 @@ class SProductQuantityWithAddAndRrmove extends StatelessWidget {
           size: SSizes.iconSm,
           color: SColors.white,
           backgroundColor: SColors.primary,
+          onPressed: add,
         ),
       ],
     );

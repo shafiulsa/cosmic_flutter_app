@@ -73,7 +73,7 @@ class ProductDetailsScreen extends StatelessWidget {
       ),
 
       ///---------Bottom Navigation Button
-      bottomNavigationBar: SBottomAddToCart(),
+      bottomNavigationBar: SBottomAddToCart(product: product),
     );
   }
 }
