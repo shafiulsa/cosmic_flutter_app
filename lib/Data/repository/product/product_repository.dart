@@ -201,6 +201,26 @@ class ProductRepository extends GetxController{
     }
   }
 
+  /// Fetch - Function to fetch list of products from Firebase
+  Future<List<ProductModel>> fetchAllProducts() async {
+    try {
+      final query = await _db.collection(SKeys.productsCollection).get();
+
+      if (query.docs.isNotEmpty) {
+        List<ProductModel> products = query.docs.map((document) => ProductModel.fromSnapshot(document)).toList();
+        return products;
+      }
+      return [];
+    } on FirebaseException catch(e){
+      throw SFirebaseException(e.code).message;
+    } on FormatException catch(_){
+      throw SFormatException();
+    } on PlatformException catch(e){
+      throw SPlatformException(e.code).message;
+    } catch(e){
+      throw 'Something went wrong. Please try again';
+    }
+  }
 
   // Fetch feature all  list of products
   Future<List<ProductModel>> fetchAllFeatureProducts() async {

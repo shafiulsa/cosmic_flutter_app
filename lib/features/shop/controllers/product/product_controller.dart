@@ -54,6 +54,17 @@ class ProductController extends GetxController {
     }
   }
 
+  /// Function to get all products
+  Future<List<ProductModel>> getAllProducts() async {
+    try {
+      List<ProductModel> products = await ProductRepository.instance.fetchAllProducts();
+      return products;
+    } catch (e) {
+      SSnackBarHelpers.errorSnackBar(title: 'Error', message: e.toString());
+      return [];
+    }
+  }
+
 
   //calculate sels percentage
   String? calculateSalePercentage(double originalPrice, double? salePrice) {

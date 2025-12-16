@@ -6,7 +6,6 @@ import 'package:e_commerce_app/utils/constans/sizes.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:iconsax/iconsax.dart';
 
 class CheckoutController extends GetxController {
   static CheckoutController get instance => Get.find();

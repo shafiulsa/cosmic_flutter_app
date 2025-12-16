@@ -25,33 +25,36 @@ class USearchBar extends StatelessWidget {
       left: SSizes.spaceBtwSections,
       child:  GestureDetector(
         onTap: ()=> Get.to(SearchStoreScreen()),
-        child: Container(
-              height: SSizes.searchBarHeight,
-              padding: EdgeInsets.symmetric(horizontal: SSizes.md),
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(SSizes.borderRadiusLg),
-                  color: dark ? SColors.light : SColors.dark,
-                  boxShadow: SShadow.searchBarShadow
-              ),
-              child: Row(
-                children: [
-        
-                  /// Search Icon
-                  Icon(Iconsax.search_normal, color: dark ? SColors.dark : SColors.light),
-                  SizedBox(width: SSizes.spaceBtwItems),
-        
-                  /// Search Bar Title
-                  // Text(SText.searchBarTitle, style: Theme.of(context).textTheme.bodySmall, color: dark ? SColors.dark : SColors.light)
-                  Text(
-                    SText.searchBarTitle,
-                    style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                      color: dark ? SColors.dark : SColors.light,
-                    ),
-                  )
-        
-                ],
-              ),
-        
+        child: Hero(
+          tag: 'serach_animation',
+          child: Container(
+                height: SSizes.searchBarHeight,
+                padding: EdgeInsets.symmetric(horizontal: SSizes.md),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(SSizes.borderRadiusLg),
+                    color: dark ? SColors.light : SColors.dark,
+                    boxShadow: SShadow.searchBarShadow
+                ),
+                child: Row(
+                  children: [
+          
+                    /// Search Icon
+                    Icon(Iconsax.search_normal, color: dark ? SColors.dark : SColors.light),
+                    SizedBox(width: SSizes.spaceBtwItems),
+          
+                    /// Search Bar Title
+                    // Text(SText.searchBarTitle, style: Theme.of(context).textTheme.bodySmall, color: dark ? SColors.dark : SColors.light)
+                    Text(
+                      SText.searchBarTitle,
+                      style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                        color: dark ? SColors.dark : SColors.light,
+                      ),
+                    )
+          
+                  ],
+                ),
+          
+          ),
         ),
       ),
     )
