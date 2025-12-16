@@ -7,7 +7,6 @@ import 'package:e_commerce_app/features/shop/controllers/cart/cart_controller.da
 import 'package:e_commerce_app/features/shop/views/cart/widgets/cart_items.dart';
 import 'package:e_commerce_app/features/shop/views/checkout/checkout.dart';
 import 'package:e_commerce_app/utils/constans/images.dart';
-import 'package:e_commerce_app/utils/constans/keys.dart';
 import 'package:e_commerce_app/utils/constans/text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -16,6 +15,7 @@ import '../../../../utils/constans/sizes.dart';
 
 class CartScreen extends StatelessWidget {
   const CartScreen({super.key});
+
 
   @override
   Widget build(BuildContext context) {

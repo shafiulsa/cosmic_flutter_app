@@ -1,6 +1,10 @@
 import 'package:e_commerce_app/Common/widgets/loaders/circular_loader.dart';
+import 'package:e_commerce_app/Common/widgets/text/section_heading.dart';
 import 'package:e_commerce_app/Data/repository/address/address_repository.dart';
 import 'package:e_commerce_app/features/personalization/models/address_model.dart';
+import 'package:e_commerce_app/features/personalization/view/address/widgets/single_address.dart';
+import 'package:e_commerce_app/utils/constans/sizes.dart';
+import 'package:e_commerce_app/utils/helpers/cloud_helper_functions.dart';
 import 'package:e_commerce_app/utils/helpers/network_manager.dart';
 import 'package:e_commerce_app/utils/popups/full_screen_loader.dart';
 import 'package:e_commerce_app/utils/popups/snackbar_helpers.dart';
@@ -138,6 +142,47 @@ class AddressController extends GetxController {
       return [];
     }
   }
+
+
+  Future<void> selectNewAddressBottomSheet(BuildContext context) {
+    return showModalBottomSheet(
+      context: context,
+      builder: (context) => SingleChildScrollView(
+        child: Container(
+          padding: EdgeInsets.all(SSizes.lg),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SSectionHeading(title: 'Select Address', showActionButton: false),
+              SizedBox(height: SSizes.spaceBtwItems),
+              FutureBuilder(
+                future: getAllAddress(),
+                builder: (context, snapshot) {
+                  final widget = SCloudHelperFunctions.checkMultiRecordState(snapshot: snapshot);
+                  if (widget != null) return widget;
+
+                  return ListView.separated(
+                    physics: NeverScrollableScrollPhysics(),
+                    separatorBuilder: (context, index) => SizedBox(height: SSizes.spaceBtwItems),
+                    shrinkWrap: true,
+                    itemCount: snapshot.data!.length,
+                    itemBuilder: (context, index) => SSingleAddress(
+                      address: snapshot.data![index],
+                      onTap: () {
+                        selectedAddress(snapshot.data![index]);
+                        Get.back();
+                      },
+                    ),
+                  );
+                },
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
 
   void resetFormFields() {
     name.clear();

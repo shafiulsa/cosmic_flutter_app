@@ -1,3 +1,6 @@
+import 'package:e_commerce_app/features/shop/controllers/cart/cart_controller.dart';
+import 'package:e_commerce_app/utils/constans/text.dart';
+import 'package:e_commerce_app/utils/helpers/pricing_calculator.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../utils/constans/sizes.dart';
@@ -7,6 +10,8 @@ class SBillingAmountSecton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final cartController= CartController.instance;
+    final subtotal=cartController.totalCartPrice.value;
     return Column(
       children: [
         /// Amount
@@ -21,7 +26,7 @@ class SBillingAmountSecton extends StatelessWidget {
                     style: Theme.of(context).textTheme.bodyMedium,
                   ),
                 ),
-                Text('\$343', style: Theme.of(context).textTheme.bodyMedium),
+                Text('${SText.currency}$subtotal', style: Theme.of(context).textTheme.bodyMedium),
               ],
             ), // Row
 
@@ -35,7 +40,7 @@ class SBillingAmountSecton extends StatelessWidget {
                     style: Theme.of(context).textTheme.bodyMedium,
                   ),
                 ),
-                Text('\$34', style: Theme.of(context).textTheme.labelLarge),
+                Text('${SText.currency}${SPricingCalculator.calculateShippingCost(subtotal,'Bsangladesh')}', style: Theme.of(context).textTheme.labelLarge),
               ],
             ), // Row
             SizedBox(height: SSizes.spaceBtwItems / 2),
@@ -49,7 +54,7 @@ class SBillingAmountSecton extends StatelessWidget {
                   ),
                 ),
 
-                Text('\$34', style: Theme.of(context).textTheme.labelLarge),
+                Text('${SText.currency}${SPricingCalculator.calculateTax(subtotal, 'Bangladesh')}', style: Theme.of(context).textTheme.labelLarge),
               ],
             ), // Row
             SizedBox(height: SSizes.spaceBtwItems / 2),
@@ -64,7 +69,7 @@ class SBillingAmountSecton extends StatelessWidget {
                     style: Theme.of(context).textTheme.bodyMedium,
                   ),
                 ),
-                Text('\$34', style: Theme.of(context).textTheme.titleMedium),
+                Text('${SText.currency}${SPricingCalculator.calculateTotalPrice(subtotal, 'Bangladesh')}', style: Theme.of(context).textTheme.titleMedium),
               ],
             ), // Row
           ],

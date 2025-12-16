@@ -15,14 +15,14 @@ class SCartItems extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = CartController.instance;
-    return ListView.separated(
-      shrinkWrap: true,
-      physics: NeverScrollableScrollPhysics(),
-      separatorBuilder: (context, index) =>
-          SizedBox(height: SSizes.spaceBtwSections),
-      itemCount: controller.cartItems.length,
-      itemBuilder: (BuildContext context, int index) {
-        return Obx(() {
+    return Obx(
+      ()=> ListView.separated(
+        shrinkWrap: true,
+        physics: NeverScrollableScrollPhysics(),
+        separatorBuilder: (context, index) =>
+            SizedBox(height: SSizes.spaceBtwSections),
+        itemCount: controller.cartItems.length,
+        itemBuilder: (BuildContext context, int index) {
           final cartItem = controller.cartItems[index];
           return Column(
             children: [
@@ -50,9 +50,9 @@ class SCartItems extends StatelessWidget {
                   ],
                 ), // Row
             ],
-          );
-        }); // Row
-      },
+          );// Row
+        },
+      ),
     );
   }
 }

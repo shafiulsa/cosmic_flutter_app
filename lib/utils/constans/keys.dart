@@ -9,7 +9,7 @@ class SKeys{
   static const String brandCatagoryCollection = 'BrandCategory';
   static const String productCatagoryCollection = 'ProductCategory';
   static const String addressCollection = 'Address';
-
+  static const String orderCollection = 'Orders';
 
 
   static const String rememberMeEmail='RememberEmail';
